@@ -12,6 +12,7 @@ use Yii;
  * @property string $password
  * @property string $name
  * @property string $token
+ * @property string $role_id
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -20,7 +21,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function tableName()
     {
-        return 'tbl_user';
+        return 'user';
     }
 
     /**
@@ -29,7 +30,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['email', 'password', 'name', 'token'], 'string', 'max' => 100],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'role_id'], 'required'],
+            [['status', 'role_id', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,11 +43,24 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'role_id' => Yii::t('app', 'Role id'),
+            'username' => Yii::t('app', 'Username'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
+            'password_hash' => Yii::t('app', 'Password Hash'),
+            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
             'email' => Yii::t('app', 'Email'),
-            'password' => Yii::t('app', 'Password'),
-            'name' => Yii::t('app', 'Name'),
-            'token' => Yii::t('app', 'Token'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuths()
+    {
+        return $this->hasMany(Auth::className(), ['user_id' => 'id']);
     }
 
     public static function findIdentity($id)
@@ -75,6 +91,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email]);
+    }
+
+    /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
     public static function generatePassword($password)

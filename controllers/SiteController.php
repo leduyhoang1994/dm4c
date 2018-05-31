@@ -53,6 +53,10 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'auth' => [
+                'class' => '\app\components\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
+            ]
         ];
     }
 
@@ -156,5 +160,13 @@ class SiteController extends Controller
         return $this->render('login',[
             'model' => $model
         ]);
+    }
+
+    /**
+     * auth handle
+     */
+    public function onAuthSuccess($client)
+    {
+        (new \app\components\AuthHandler($client))->handle();
     }
 }

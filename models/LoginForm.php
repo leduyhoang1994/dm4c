@@ -30,7 +30,7 @@ class LoginForm extends Model
             ['email', 'email'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            ['email', 'validateUser'],
+            ['email', 'validateUser', 'skipOnError'=>true],
         ];
     }
 
@@ -54,10 +54,12 @@ class LoginForm extends Model
 
     public function validateUser($attribute)
     {
-        $user = $this->getUser();
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
 
-        if ($user->role_id !== \app\models\Role::ADMINISTRATOR) {
-            $this->addError($attribute, 'You must be an administrator .');
+            if ($user->role_id !== \app\models\Role::ADMINISTRATOR) {
+                $this->addError($attribute, 'You must be an administrator .');
+            }
         }
     }
 

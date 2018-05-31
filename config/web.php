@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'DM4C',
+    'name' => 'DM4C PROJECT',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -28,6 +28,16 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => '1022716341457-f27n3jfgajncgub5i2qk7it0lkho8a74.apps.googleusercontent.com',
+                    'clientSecret' => 'Zr7Oit-z-VTKsNh8yRVfAoPK',
+                ]
+            ],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
