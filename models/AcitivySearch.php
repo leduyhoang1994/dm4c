@@ -20,8 +20,8 @@ class ActivitySearch extends Model
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'activity_code', 'title', 'complete_code', 'shortened_code', 'formula', 'define', 'tot', 'toa', 'cf'], 'required'],
-            [['parent_id', 'level', 'tot', 'toa', 'cf'], 'integer'],
+            [['id', 'parent_id', 'level', 'activity_code', 'title', 'complete_code', 'shortened_code', 'formula', 'define', 'tot', 'toa', 'cf'], 'required'],
+            [['id', 'parent_id', 'level', 'tot', 'toa', 'cf'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['activity_code', 'complete_code', 'shortened_code'], 'string', 'max' => 32],
             [['title', 'formula', 'define'], 'string', 'max' => 300],

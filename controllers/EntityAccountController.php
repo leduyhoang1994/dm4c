@@ -6,7 +6,7 @@ use Yii;
 use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
 
-class EntityAccountController extends ActiveController
+class EntityAccountController extends ActiveController implements Dm4cController
 {
     public $modelClass = 'app\models\EntityAccount';
 
@@ -14,9 +14,10 @@ class EntityAccountController extends ActiveController
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
     ];
-
+    
     public function behaviors()
     {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return [
             'contentNegotiator' => [
                 'class' => \yii\filters\ContentNegotiator::className(),
@@ -26,5 +27,34 @@ class EntityAccountController extends ActiveController
                 ],
             ],
         ];
+    }
+
+    public function actionSearch()
+    {
+        $filter = new \yii\data\ActiveDataFilter([
+            'searchModel' => 'app\models\EntityAccountSearch'
+        ]);
+        
+        $filterCondition = null;
+        
+        // You may load filters from any source. For example,
+        // if you prefer JSON in request body,
+        // use Yii::$app->request->getBodyParams() below:
+        if ($filter->load(Yii::$app->request->getBodyParams())) { 
+            $filterCondition = $filter->build();
+            if ($filterCondition === false) {
+                // Serializer would get errors out of it
+                return $filter;
+            }
+        }
+        
+        $query = \app\models\EntityAccount::find();
+        if ($filterCondition !== null) {
+            $query->andWhere($filterCondition);
+        }
+        
+        return new \yii\data\ActiveDataProvider([
+            'query' => $query,
+        ]);
     }
 }
