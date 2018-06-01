@@ -22,8 +22,8 @@ class EntityAccountSearch extends Model
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'full_code', 'abbr_code', 'name_native', 'name_en', 'abbr_name', 'tax_code', 'address_in_country', 'address_in_english', 'latest_effective_date'], 'required'],
-            [['parent_id', 'level'], 'integer'],
+            [['id', 'parent_id', 'level', 'full_code', 'abbr_code', 'name_native', 'name_en', 'abbr_name', 'tax_code', 'address_in_country', 'address_in_english', 'latest_effective_date'], 'required'],
+            [['id', 'parent_id', 'level'], 'integer'],
             [['latest_effective_date', 'created_at', 'updated_at'], 'safe'],
             [['full_code', 'abbr_code', 'tax_code'], 'string', 'max' => 32],
             [['name_native', 'name_en', 'abbr_name'], 'string', 'max' => 255],
