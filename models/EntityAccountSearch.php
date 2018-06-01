@@ -3,7 +3,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class ProductSearch extends Model 
+class EntityAccountSearch extends Model 
 {
     public $id;
     public $level;
