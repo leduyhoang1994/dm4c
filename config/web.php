@@ -44,10 +44,16 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'viewPath' => '@common/mail',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'encryption' => 'tls',
+                'host' => 'smtp.gmail.com',
+                'port' => '587',
+ 
+                'username' => 'dm4c@topica.asia',
+                'password' => 'topicahn',
+            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -83,9 +89,9 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'activitie',
-                    'only' => ['index', 'view', 'options'],
+                    'only' => ['index', 'view', 'options', 'search'],
                     'extraPatterns' => [
-
+                        'POST search' => 'search'
                     ],
                 ],
                 [
