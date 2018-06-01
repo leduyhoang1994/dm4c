@@ -14,9 +14,10 @@ class ProductController extends ActiveController implements Dm4cController
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
     ];
-
+    
     public function behaviors()
     {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return [
             'contentNegotiator' => [
                 'class' => \yii\filters\ContentNegotiator::className(),
