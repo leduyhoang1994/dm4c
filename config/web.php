@@ -73,17 +73,17 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'entity-account',
-                    'only' => ['index', 'view', 'options'],
+                    'only' => ['index', 'view', 'options', 'search'],
                     'extraPatterns' => [
-
+                        'POST search' => 'search'
                     ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'product',
-                    'only' => ['index', 'view', 'options'],
+                    'only' => ['index', 'view', 'options', 'search'],
                     'extraPatterns' => [
-
+                        'POST search' => 'search'
                     ],
                 ],
                 [
