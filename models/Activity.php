@@ -10,8 +10,8 @@ use Yii;
  * @property string $id
  * @property string $parent_id
  * @property int $level
- * @property string $activity_code
- * @property string $title
+ * @property string $name
+ * @property string $body
  * @property string $complete_code
  * @property string $shortened_code
  * @property string $formula
@@ -19,6 +19,7 @@ use Yii;
  * @property int $tot
  * @property int $toa
  * @property int $cf
+ * @property int $status
  * @property string $created_at
  * @property string $updated_at
  */
@@ -38,11 +39,10 @@ class Activity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'activity_code', 'title', 'complete_code', 'shortened_code', 'formula', 'define', 'tot', 'toa', 'cf'], 'required'],
-            [['parent_id', 'level', 'tot', 'toa', 'cf'], 'integer'],
+            [['parent_id', 'level', 'tot', 'toa', 'cf', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['activity_code', 'complete_code', 'shortened_code'], 'string', 'max' => 32],
-            [['title', 'formula', 'define'], 'string', 'max' => 300],
+            [['name', 'complete_code', 'shortened_code'], 'string', 'max' => 32],
+            [['body', 'formula', 'define'], 'string', 'max' => 300],
         ];
     }
 
@@ -55,8 +55,8 @@ class Activity extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'parent_id' => Yii::t('app', 'Parent ID'),
             'level' => Yii::t('app', 'Level'),
-            'activity_code' => Yii::t('app', 'Activity Code'),
-            'title' => Yii::t('app', 'Title'),
+            'name' => Yii::t('app', 'Name'),
+            'body' => Yii::t('app', 'Body'),
             'complete_code' => Yii::t('app', 'Complete Code'),
             'shortened_code' => Yii::t('app', 'Shortened Code'),
             'formula' => Yii::t('app', 'Formula'),
@@ -64,6 +64,7 @@ class Activity extends \yii\db\ActiveRecord
             'tot' => Yii::t('app', 'Tot'),
             'toa' => Yii::t('app', 'Toa'),
             'cf' => Yii::t('app', 'Cf'),
+            'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];

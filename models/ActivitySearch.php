@@ -5,26 +5,26 @@ use yii\base\Model;
 
 class ActivitySearch extends Model 
 {
-    public $id;
-    public $level;
-    public $formula;
-    public $title;
-    public $complete_code;
     public $parent_id;
+    public $level;
+    public $name;
+    public $body;
+    public $complete_code;
     public $shortened_code;
-    public $activity_code;
+    public $formula;
+    public $define;
+    public $tot;
+    public $toa;
+    public $cf;
+    public $status;
+    public $created_at;
+    public $updated_at;
     
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
-        return [
-            [['id', 'parent_id', 'level', 'activity_code', 'title', 'complete_code', 'shortened_code', 'formula', 'define', 'tot', 'toa', 'cf'], 'required'],
-            [['id', 'parent_id', 'level', 'tot', 'toa', 'cf'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['activity_code', 'complete_code', 'shortened_code'], 'string', 'max' => 32],
-            [['title', 'formula', 'define'], 'string', 'max' => 300],
-        ];
+        return (new Activity)->rules();
     }
 }

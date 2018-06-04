@@ -19,6 +19,7 @@ use Yii;
  * @property string $link_pdf
  * @property string $decision_number
  * @property string $upgrade_note
+ * @property int $status
  * @property string $created_at
  * @property string $updated_at
  */
@@ -38,8 +39,7 @@ class CostProfit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'decision_number'], 'integer'],
-            [['level', 'division_name_vn', 'division_name_en', 'complete_code', 'shortened_code', 'proposal', 'approved', 'link_pdf', 'upgrade_note'], 'required'],
+            [['parent_id', 'level', 'decision_number', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['division_name_vn', 'division_name_en', 'link_pdf'], 'string', 'max' => 255],
             [['complete_code', 'shortened_code', 'proposal', 'approved'], 'string', 'max' => 32],
@@ -65,6 +65,7 @@ class CostProfit extends \yii\db\ActiveRecord
             'link_pdf' => Yii::t('app', 'Link Pdf'),
             'decision_number' => Yii::t('app', 'Decision Number'),
             'upgrade_note' => Yii::t('app', 'Upgrade Note'),
+            'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
         ];

@@ -5,20 +5,23 @@ use yii\base\Model;
 
 class CostProfitSearch extends Model 
 {
-    public $id;
+    public $parent_id;
     public $level;
     public $division_name_vn;
-    public $parent_id;
+    public $division_name_en;
+    public $complete_code;
     public $shortened_code;
-    
+    public $proposal;
+    public $approved;
+    public $link_pdf;
+    public $decision_number;
+    public $upgrade_note;
+    public $status;
+    public $created_at;
+    public $updated_at;
+
     public function rules()
     {
-        return [
-            ['id', 'integer'],
-            ['level', 'integer', 'min' => 0, 'max' => 5],
-            ['division_name_vn', 'string'],
-            ['parent_id', 'integer'],
-            ['shortened_code', 'string']
-        ];
+        return (new CostProfit)->rules();
     }
 }
