@@ -32,7 +32,7 @@ class Activity extends \yii\db\ActiveRecord
     {
         return 'hd';
     }
-
+    
     /**
      * {@inheritdoc}
      */

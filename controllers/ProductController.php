@@ -26,6 +26,12 @@ class ProductController extends ActiveController implements Dm4cController
                     'application/json' => \yii\web\Response::FORMAT_JSON,
                 ],
             ],
+            'authenticator' => [
+                'class' => \yii\filters\auth\CompositeAuth::className(),
+                'authMethods' => [
+                    \yii\filters\auth\HttpBearerAuth::className(),
+                ],
+            ],
         ];
     }
 
