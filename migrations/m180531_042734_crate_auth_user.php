@@ -12,14 +12,14 @@ class m180531_042734_crate_auth_user extends Migration
         $this->createTable('user', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull(),
+            'role_id' => $this->integer()->notNull(),
             'auth_key' => $this->string()->notNull(),
             'password_hash' => $this->string()->notNull(),
-            'password_reset_token' => $this->string()->notNull(),
+            'password_reset_token' => $this->string(),
             'email' => $this->string()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
-            'token' => $this->integer(),
         ]);
 
         $this->createTable('auth', [

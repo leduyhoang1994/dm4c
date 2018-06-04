@@ -145,9 +145,15 @@ class SiteController extends Controller
     {
         $model = new \app\models\forms\RegisterForm;
         $params = Yii::$app->request->bodyParams;
-        if ($model->load($params, "RegisterForm") && $model->validate()) {
-            if($model->register()){
-                Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
+
+        if ($model->load($params, "RegisterForm")) {
+            if (!$model->validate()) {
+                echo \yii\helpers\Html::errorSummary($model);
+            }
+            else {
+                if ($model->register()) {
+                    Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
+                }
             }
         }
 

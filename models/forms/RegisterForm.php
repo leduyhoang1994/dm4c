@@ -11,7 +11,7 @@ use yii\base\Model;
 class RegisterForm extends Model
 {
     public $email;
-    public $name;
+    public $username;
     public $password;
     public $verifyCode;
 
@@ -22,7 +22,7 @@ class RegisterForm extends Model
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'verifyCode'], 'required'],
+            [['username', 'email', 'password', 'verifyCode'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
             ['email', 'validateEmail'],
@@ -50,11 +50,19 @@ class RegisterForm extends Model
 
     public function register()
     {
-        $user = new \app\models\User;
-        $user->email = $this->email;
-        $user->name = $this->name;
         $passwordHash = \app\models\User::generatePassword($this->password);
-        $user->password = $passwordHash;
+        $requestIdentity = Yii::$app->security->generateRandomString();
+
+        $user = new \app\models\User([
+            'username' => $this->username,
+            'email' => $this->email,
+            'password_hash' => $passwordHash,
+            'created_at' => time(),
+            'updated_at' => time(),
+            'role_id' => \app\models\Role::GUEST,
+            'request_identity' => $requestIdentity
+        ]);
+        $user->generateAuthKey();
 
         return $user->save();
     }
