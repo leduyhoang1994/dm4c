@@ -13,6 +13,19 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php use yii\authclient\widgets\AuthChoice; ?>
+    <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false]); ?>
+    <?php foreach ($authAuthChoice->getClients() as $client): ?>
+        <?php
+            echo $authAuthChoice->clientLink($client,
+            '<i class="fa fa-google-plus"></i> Login with Google',
+            [
+                'class' => 'btn btn-social btn-google-plus',
+            ])
+        ?>
+    <?php endforeach; ?>
+    <?php AuthChoice::end(); ?>
+
     <p>Please fill out the following fields to login:</p>
 
     <?php $form = ActiveForm::begin([
@@ -31,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <a class="btn btn-success" href="/site/register">Register</a>
             </div>
         </div>
     

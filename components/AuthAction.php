@@ -16,7 +16,7 @@ class AuthAction extends \yii\authclient\AuthAction
             ]);
             return \yii\helpers\Url::to(['site/register']);
         }
-
-        return Yii::$app->getUser()->getReturnUrl();
+        return \yii\helpers\Url::to(['site/index']);
+        // return Yii::$app->getUser()->getReturnUrl();
     }
 }

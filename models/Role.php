@@ -13,8 +13,8 @@ use Yii;
 class Role extends \yii\db\ActiveRecord
 {
     const GUEST = 1;
-    const DEVELOPER = 2;
-    const ADMINISTRATOR = 3;
+    const DEVELOPER = 3;
+    const ADMINISTRATOR = 2;
     const EDITOR = 4;
 
     /**

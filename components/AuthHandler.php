@@ -40,11 +40,10 @@ class AuthHandler
             'source' => $this->client->getId(),
             'source_id' => $id,
         ])->one();
-
-        if (!Helper::endswith($email, '@topica.edu.vn'))
+        if (!Helper::endswith($email, '@topica.edu.vn') && !Helper::endswith($email, '@topica.asia'))
         {
             Yii::$app->getSession()->setFlash('error', [
-                Yii::t('app', 'Email must have domain of topica.edu.vn'),
+                Yii::t('app', 'Email must have domain of topica.edu.vn or topica.asia'),
             ]);
             return;
         }
@@ -60,6 +59,7 @@ class AuthHandler
                         Yii::t('app', "User with the same email as in {client} account already exists but isn't linked to it. Login using email first to link it.", ['client' => $this->client->getTitle()]),
                     ]);
                 } else {
+                    $requestIdentity = Yii::$app->security->generateRandomString();
                     $password = Yii::$app->security->generatePasswordHash('topica@123');
                     $user = new User([
                         'username' => $nickname,
@@ -67,7 +67,8 @@ class AuthHandler
                         'password_hash' => $password,
                         'created_at' => time(),
                         'updated_at' => time(),
-                        'role_id' => \app\models\Role::GUEST
+                        'role_id' => \app\models\Role::GUEST,
+                        'request_identity' => $requestIdentity
                     ]);
                     $user->generateAuthKey();
                     // $user->generatePasswordResetToken();
@@ -81,7 +82,18 @@ class AuthHandler
                             'source_id' => (string)$id,
                         ]);
                         if ($auth->save()) {
+                            Yii::$app->mailer->compose('registerSuccess', [
+                                'email' => $email,
+                                'link' => Yii::$app->request->hostInfo . yii\helpers\Url::to(['admin/confirm',
+                                'u' => $requestIdentity])
+                            ])
+                                ->setFrom('dm4c@topica.asia')
+                                ->setTo($email)
+                                ->setSubject('Submit registration for DM4C services')
+                                ->send();
+                            
                             $transaction->commit();
+                            Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
                             Yii::$app->user->login($user);
                         } else {
                             Yii::$app->getSession()->setFlash('error', [

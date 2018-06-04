@@ -19,6 +19,7 @@ class m180531_042734_crate_auth_user extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'token' => $this->integer(),
         ]);
 
         $this->createTable('auth', [

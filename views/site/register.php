@@ -29,7 +29,7 @@ $this->title = 'Register to DM4C';
             <?php foreach ($authAuthChoice->getClients() as $client): ?>
                 <?php
                     echo $authAuthChoice->clientLink($client,
-                    '<i class="fa fa-google-plus"></i> Sign in with Google',
+                    '<i class="fa fa-google-plus"></i> Register with Google',
                     [
                         'class' => 'btn btn-social btn-google-plus',
                     ])

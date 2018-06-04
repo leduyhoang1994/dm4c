@@ -44,7 +44,7 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@common/mail',
+            'viewPath' => '@app/mail',
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'encryption' => 'tls',

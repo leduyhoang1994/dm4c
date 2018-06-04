@@ -67,6 +67,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
+                $this->redirect(['admin/index']);
+            }
+            $confirmed = Yii::$app->user->identity->request_identity == null;
+            return $this->render('index-user',[
+                'confirmed' => $confirmed
+            ]);
+        }
         return $this->render('index');
     }
 

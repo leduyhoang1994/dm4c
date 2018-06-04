@@ -56,10 +56,6 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-
-            if ($user->role_id !== \app\models\Role::ADMINISTRATOR) {
-                $this->addError($attribute, 'You must be an administrator .');
-            }
         }
     }
 

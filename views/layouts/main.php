@@ -38,9 +38,14 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            // ['label' => 'Home', 'url' => ['/site/index']],
+            // ['label' => 'About', 'url' => ['/site/about']],
+            // ['label' => 'Contact', 'url' => ['/site/contact']],
+            [
+                'label' => 'Partners', 
+                'url' => ['/admin/partner-manager'],
+                'visible' => (!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR)
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Hi', 'url' => ['/site/index']]
             ) : (
