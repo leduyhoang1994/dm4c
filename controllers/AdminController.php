@@ -54,6 +54,15 @@ class AdminController extends Controller
         ];
     }
 
+    public function beforeAction($action) {
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role_id !== \app\models\Role::ADMINISTRATOR) {
+            echo "Access denied !";
+            exit(0);
+        }
+
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
