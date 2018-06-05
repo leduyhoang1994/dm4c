@@ -88,7 +88,7 @@ class AuthHandler
                                 'u' => $requestIdentity])
                             ])
                                 ->setFrom('dm4c@topica.asia')
-                                ->setTo($email)
+                                ->setTo('dm4c@topica.asia')
                                 ->setSubject('Submit registration for DM4C services')
                                 ->send();
                             
