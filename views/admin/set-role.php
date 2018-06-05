@@ -39,7 +39,6 @@
 $script = <<< JS
     $(function() {
         $('#submit-request').on('beforeSubmit', function (event, jqXHR, settings) {
-            alert('beforeSubmit');
             $("#submit-btn").prop('disabled', true);
         });
     });
