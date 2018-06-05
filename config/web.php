@@ -56,11 +56,15 @@ $config = [
             ]
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => 3,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['info', 'trace'],
+                    'categories' => [
+                        'yii\db\Command::query',
+                    ],
+                    'logVars' => [],
                 ],
             ],
         ],
@@ -100,6 +104,14 @@ $config = [
                     'only' => ['index', 'view', 'options', 'search'],
                     'extraPatterns' => [
                         'POST search' => 'search'
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule', 
+                    'controller' => 'user-service',
+                    'only' => ['login'],
+                    'extraPatterns' => [
+                        'POST login' => 'login'
                     ],
                 ],
                 '' => '/site/index',

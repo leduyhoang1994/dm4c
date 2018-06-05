@@ -64,6 +64,32 @@ class RegisterForm extends Model
         ]);
         $user->generateAuthKey();
 
+        $defaultPassword = Yii::$app->params['defaultPassword'];
+        $adminEmail = Yii::$app->params['adminEmail'];
+
+        
+        Yii::$app->mailer
+        ->compose('registerSuccess', [
+            'email' => $this->email,
+            'link' => Yii::$app->request->hostInfo . yii\helpers\Url::to(['admin/confirm',
+            'u' => $requestIdentity])
+        ])
+        ->setFrom($adminEmail)
+        ->setTo($adminEmail)
+        ->setSubject('Submit registration for DM4C services')
+        ->send();
+                            
+        Yii::$app->mailer
+        ->compose('registerInfo', [
+            'name' => $nickname,
+            'social' => true,
+            'password' => $defaultPassword
+        ])
+        ->setFrom($adminEmail)
+        ->setTo($email)
+        ->setSubject('Registation infomation')
+        ->send();
+
         return $user->save();
     }
 }

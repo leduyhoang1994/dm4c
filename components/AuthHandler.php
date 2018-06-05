@@ -60,7 +60,10 @@ class AuthHandler
                     ]);
                 } else {
                     $requestIdentity = Yii::$app->security->generateRandomString();
-                    $password = Yii::$app->security->generatePasswordHash('topica@123');
+                    $defaultPassword = Yii::$app->params['defaultPassword'];
+                    $adminEmail = Yii::$app->params['adminEmail'];
+
+                    $password = Yii::$app->security->generatePasswordHash($defaultPassword);
                     $user = new User([
                         'username' => $nickname,
                         'email' => $email,
@@ -82,14 +85,26 @@ class AuthHandler
                             'source_id' => (string)$id,
                         ]);
                         if ($auth->save()) {
-                            Yii::$app->mailer->compose('registerSuccess', [
-                                'email' => $email,
-                                'link' => Yii::$app->request->hostInfo . yii\helpers\Url::to(['admin/confirm',
-                                'u' => $requestIdentity])
-                            ])
-                                ->setFrom('dm4c@topica.asia')
-                                ->setTo('dm4c@topica.asia')
+                            Yii::$app->mailer
+                                ->compose('registerSuccess', [
+                                    'email' => $email,
+                                    'link' => Yii::$app->request->hostInfo . yii\helpers\Url::to(['admin/confirm',
+                                    'u' => $requestIdentity])
+                                ])
+                                ->setFrom($adminEmail)
+                                ->setTo($adminEmail)
                                 ->setSubject('Submit registration for DM4C services')
+                                ->send();
+                            
+                            Yii::$app->mailer
+                                ->compose('registerInfo', [
+                                    'name' => $nickname,
+                                    'social' => true,
+                                    'password' => $defaultPassword
+                                ])
+                                ->setFrom($adminEmail)
+                                ->setTo($email)
+                                ->setSubject('Registation infomation')
                                 ->send();
                             
                             $transaction->commit();

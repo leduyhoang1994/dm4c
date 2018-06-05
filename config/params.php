@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
+    'adminEmail' => 'dm4c@topica.asia',
+    'defaultPassword' => 'topica@123'
 ];
