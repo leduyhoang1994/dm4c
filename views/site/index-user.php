@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'DM4C project';
 
 ?>
 <div class="site-index">
@@ -12,6 +12,9 @@ $this->title = 'My Yii Application';
             <p class="lead">Your api token is : <?= Yii::$app->user->identity->token ?></p>
         <?php else : ?>
             <p class="lead">Please wait patiently until your request is confirmed :3</p>
+            <p>
+                You can check your <a href="https://mail.google.com" target="_blank">gmail</a> for default password
+            </p>
         <?php endif; ?>
     </div>
 </div>

@@ -55,7 +55,7 @@ class SetRoleForm extends Model
 
     private function getUser()
     {
-        if (intval($this->requestIdentity) == $this->requestIdentity) {
+        if (ctype_digit($this->requestIdentity)) {
             $this->_user = $this->_user === false ? \app\models\User::findOne($this->requestIdentity) : $this->_user;    
         } else {
             $this->_user = $this->_user === false ? \app\models\User::findByRequestIdentity($this->requestIdentity) : $this->_user;
