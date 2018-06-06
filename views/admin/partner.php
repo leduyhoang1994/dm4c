@@ -3,6 +3,7 @@
     use yii\grid\ActionColumn;
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
+    $this->title = 'Partners manager - DM4C project';
 ?>
 
 <div class="site-index">

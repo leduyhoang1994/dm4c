@@ -67,6 +67,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        Yii::$app->view->title = "DM4C project";
         if (!Yii::$app->user->isGuest) {
             if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
                 $this->redirect(['admin/index']);
