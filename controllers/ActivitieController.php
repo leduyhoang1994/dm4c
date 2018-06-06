@@ -46,7 +46,7 @@ class ActivitieController extends ActiveController implements Dm4cController
         // You may load filters from any source. For example,
         // if you prefer JSON in request body,
         // use Yii::$app->request->getBodyParams() below:
-        if ($filter->load(Yii::$app->request->getBodyParams())) { 
+        if (isset(Yii::$app->request->getBodyParams()['filter']) && $filter->load(Yii::$app->request->getBodyParams()['filter'])) { 
             $filterCondition = $filter->build();
             if ($filterCondition === false) {
                 // Serializer would get errors out of it
