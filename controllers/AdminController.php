@@ -56,8 +56,15 @@ class AdminController extends Controller
 
     public function beforeAction($action) {
         if (Yii::$app->user->isGuest || Yii::$app->user->identity->role_id !== \app\models\Role::ADMINISTRATOR) {
-            echo "Access denied !";
-            exit(0);
+
+            if (Yii::$app->user->isGuest) {
+                return $this->redirect(['site/register']);
+            }
+
+            echo $this->render('/site/message', [
+                'message' => 'Access denied'
+            ]);
+            exit;
         }
 
         return parent::beforeAction($action);
@@ -79,8 +86,10 @@ class AdminController extends Controller
             'request_identity' => $u
         ]);
         if (!$user) {
-            echo \yii\helpers\Html::label("Request invalid");
-            return;
+            echo $this->render('/site/message', [
+                'message' => \yii\helpers\Html::label("Request invalid")
+            ]);
+            exit;
         }
 
         $model = new \app\models\forms\SetRoleForm;
@@ -123,7 +132,51 @@ class AdminController extends Controller
 
     public function actionPartnerManager()
     {
+        $model = new \app\models\forms\SetRoleForm;
+        $roles = \yii\helpers\ArrayHelper::map(\app\models\Role::find()->all(), 'id', 'name');
+        $message = [];
 
+        if ($model->load(Yii::$app->request->bodyParams, 'SetRoleForm')) {
+            if (!$model->validate()) {
+                if ($model->hasErrors()) {
+                    $message['status'] = 'error';
+                    $message['message'] = $model->getFirstErrors();
+                }
+            } else {
+                if ($model->setRole()) {
+                    $message['status'] = 'success';
+                    $message['message'] = 'Update success';
+                } else {
+                    $message['status'] = 'error';
+                    $message['message'] = 'Update fail';
+                }
+            }
+        }
+
+        $query = \app\models\User::find()
+            ->select('id, username, email, role_id')
+            ->with('role');
+
+        $usersData = new \yii\data\ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'email' => SORT_DESC,
+                    'username' => SORT_ASC, 
+                    'role_id' => SORT_ASC, 
+                ]
+            ],
+        ]);
+
+        return $this->render('partner', [
+            'usersData' => $usersData,
+            'model' => $model,
+            'roles' => $roles,
+            'message' => $message
+        ]);
     }
 
 }

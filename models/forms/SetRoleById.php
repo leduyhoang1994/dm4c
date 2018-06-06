@@ -10,7 +10,7 @@ use yii\base\Model;
  */
 class SetRoleForm extends Model
 {
-    public $requestIdentity;
+    public $userId;
     public $role;
 
     private $_user = false;
@@ -20,23 +20,13 @@ class SetRoleForm extends Model
     public function rules()
     {
         return [
-            [['role', 'requestIdentity'], 'required'],
-            ['requestIdentity', 'validateEmail'],
+            [['role', 'userId'], 'required'],
+            ['userId', 'validateUser'],
             ['role', 'exist', 'targetClass' => \app\models\Role::class, 'targetAttribute' => ['role' => 'id']],
         ];
     }
 
-    /**
-     * @return array customized attribute labels
-     */
-    public function attributeLabels()
-    {
-        return [
-            'verifyCode' => 'Verification Code',
-        ];
-    }
-
-    public function validateEmail($attribute)
+    public function validateUser($attribute)
     {
         $admin = Yii::$app->user->identity;
 
@@ -55,12 +45,7 @@ class SetRoleForm extends Model
 
     private function getUser()
     {
-        if (intval($this->requestIdentity) == $this->requestIdentity) {
-            $this->_user = $this->_user === false ? \app\models\User::findOne($this->requestIdentity) : $this->_user;    
-        } else {
-            $this->_user = $this->_user === false ? \app\models\User::findByRequestIdentity($this->requestIdentity) : $this->_user;
-        }
-        
+        $this->_user = $this->_user === false ? \app\models\User::findOne($this->userId) : $this->_user;
 
         return $this->_user;
     }
@@ -71,7 +56,7 @@ class SetRoleForm extends Model
 
         $user->role_id = $this->role;
         $user->request_identity = null;
-        $user->token = $user->token == null ? \app\models\User::generateToken() : $user->token;
+        $user->token = \app\models\User::generateToken();
         $result = [];
         
         if($user->save()){

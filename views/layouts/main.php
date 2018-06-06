@@ -47,7 +47,7 @@ AppAsset::register($this);
                 'visible' => (!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR)
             ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Hi', 'url' => ['/site/index']]
+                ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

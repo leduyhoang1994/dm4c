@@ -120,3 +120,25 @@ a.desc:after {
 #w1{
     display: inline-block !important;
 }
+
+.update-button{
+    color: #337ab7;
+    cursor: pointer;
+}
+
+.update-button:hover{
+    color: #333;
+}
+
+.update-button:active{
+    color: #337ab7;
+}
+
+.field-setroleform-role{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.field-setroleform-requestidentity{
+    display: none;
+}
