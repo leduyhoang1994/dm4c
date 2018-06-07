@@ -144,6 +144,7 @@ class AdminController extends Controller
             ],
             'sort' => [
                 'defaultOrder' => [
+                    'id' => SORT_ASC,
                     'email' => SORT_DESC,
                     'username' => SORT_ASC, 
                     'role_id' => SORT_ASC, 
