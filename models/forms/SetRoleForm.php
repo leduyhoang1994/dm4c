@@ -71,12 +71,26 @@ class SetRoleForm extends Model
 
         $user->role_id = $this->role;
         $user->request_identity = null;
+        $sendMail = false;
+        if ($user->token == null) {
+            $sendMail = true;
+        }
         $user->token = $user->token == null ? \app\models\User::generateToken() : $user->token;
         $result = [];
         
         if($user->save()){
             $result['result'] = true;
             $result['token'] = $user->token;
+
+            if ($sendMail) {
+                Yii::$app->mailer->compose('submitSuccess', [
+                    'token' => $user->token,
+                ])
+                    ->setFrom('dm4c@topica.asia')
+                    ->setTo($user->email)
+                    ->setSubject('Submit registration for DM4C services')
+                    ->send();
+            }
         } else {
             $result['result'] = false;
         }

@@ -90,13 +90,6 @@ class AdminController extends Controller
                 $setRole = $model->setRole();
                 if ($setRole['result']) {
                     echo "<p class=\"lead\"><center>Success !!!</center></p>";
-                    Yii::$app->mailer->compose('submitSuccess', [
-                        'token' => $setRole['token'],
-                    ])
-                        ->setFrom('dm4c@topica.asia')
-                        ->setTo($user->email)
-                        ->setSubject('Submit registration for DM4C services')
-                        ->send();
                     return;
                 }
             }
