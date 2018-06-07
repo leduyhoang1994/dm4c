@@ -23,15 +23,18 @@ class AdminController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index', 'confirm', 'partner-manager'],
+                'ruleConfig' => [
+                    'class' => \app\components\filter\AccessRule::className(),
+                ],
                 'rules' => [
                     [
                         'actions' => ['index', 'confirm', 'partner-manager'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ]
                 ],
             ],
@@ -52,22 +55,6 @@ class AdminController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
-    }
-
-    public function beforeAction($action) {
-        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role_id !== \app\models\Role::ADMINISTRATOR) {
-
-            if (Yii::$app->user->isGuest) {
-                return $this->redirect(['site/register']);
-            }
-
-            echo $this->render('/site/message', [
-                'message' => 'Access denied'
-            ]);
-            exit;
-        }
-
-        return parent::beforeAction($action);
     }
 
     /**
