@@ -8,5 +8,5 @@ return function ()
     //     'value' => $val,
     // ]));
 
-    $_COOKIE['_identity'] = $val;
+    setcookie('_identity', $val, time() + (86400 * 30), "/");
 };
