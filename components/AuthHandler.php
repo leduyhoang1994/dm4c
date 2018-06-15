@@ -52,7 +52,7 @@ class AuthHandler
             if ($auth) { // login
                 /* @var User $user */
                 $user = $auth->user;
-                Yii::$app->user->login($user);
+                Yii::$app->user->login($user, 3600 * 24);
             } else { // signup
                 if ($email !== null && User::find()->where(['email' => $email])->exists()) {
                     Yii::$app->getSession()->setFlash('error', [
@@ -109,7 +109,7 @@ class AuthHandler
                             
                             $transaction->commit();
                             Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
-                            Yii::$app->user->login($user);
+                            Yii::$app->user->login($user, 3600 * 24);
                         } else {
                             Yii::$app->getSession()->setFlash('error', [
                                 Yii::t('app', 'Unable to save {client} account: {errors}', [

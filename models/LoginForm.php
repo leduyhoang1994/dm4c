@@ -15,6 +15,7 @@ class LoginForm extends Model
 {
     public $email;
     public $password;
+    public $auth_key;
 
     private $_user = false;
 
@@ -26,10 +27,16 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['email', 'password'], 'required'],
+            [['auth_key'], 'required', 'when' => function ($model) {
+                return empty($model->email) && empty($model->password);
+            }],
+            [['email', 'password'], 'required', 'when' => function ($model) {
+                return empty($model->auth_key);
+            }],
             ['email', 'email'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['auth_key', 'validateAuthkey'],
             ['email', 'validateUser', 'skipOnError'=>true],
         ];
     }
@@ -52,6 +59,24 @@ class LoginForm extends Model
         }
     }
 
+    /**
+     * Validates authkey.
+     * This method serves as the inline validation for authkey.
+     *
+     * @param string $attribute the attribute currently being validated
+     * @param array $params the additional name-value pairs given in the rule
+     */
+    public function validateAuthkey($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+
+            if (!$user) {
+                $this->addError($attribute, 'Incorrect username or password.');
+            }
+        }
+    }
+
     public function validateUser($attribute)
     {
         if (!$this->hasErrors()) {
@@ -66,7 +91,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser());
+            return Yii::$app->user->login($this->getUser(), 3600 * 24);
         }
         return false;
     }
@@ -79,7 +104,11 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByEmail($this->email);
+            if (!empty($this->auth_key)) {
+                $this->_user = User::findByAuthkey($this->auth_key);
+            }else {
+                $this->_user = User::findByEmail($this->email);
+            }
         }
 
         return $this->_user;

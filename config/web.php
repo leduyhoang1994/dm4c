@@ -12,10 +12,11 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'on beforeAction' => require(__DIR__ . '/before-action.php'),
     'components' => [
         'request' => [
             'enableCookieValidation' => true,
-            'enableCsrfValidation' => false,
+            'enableCsrfValidation' => true,
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'A_oO749FOY5yXP9PAmwOL3YQ0g3yNuXw',
             'parsers' => [
@@ -28,6 +29,9 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-dm4c', 'httpOnly' => true],
+            'on afterLogin' => require(__DIR__ . '/after-login.php'),
+            'on beforeLogout' => require(__DIR__ . '/before-logout.php'),
         ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',

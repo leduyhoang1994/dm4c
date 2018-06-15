@@ -89,12 +89,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return $this->auth_key === $authKey;
     }
 
     public static function findByEmail($email)
@@ -108,6 +108,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function generateAuthKey()
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+    public static function findByAuthKey($authKey)
+    {
+        return static::findOne(['auth_key' => $authKey]);
     }
 
     public static function generatePassword($password)

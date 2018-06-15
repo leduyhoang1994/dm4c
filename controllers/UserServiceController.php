@@ -51,6 +51,7 @@ class UserServiceController extends ActiveController
         $result['email'] = $user->email;
         $result['role'] = $user->role->name;
         $result['role_id'] = $user->role->id;
+        $result['auth_key'] = $user->auth_key;
 
         return $result;
     }
