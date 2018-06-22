@@ -53,10 +53,17 @@ $script = <<< JS
             var roleId = $(e.currentTarget).attr("current-role");
             var name = $(e.currentTarget).attr("name");
             var email = $(e.currentTarget).attr("email");
+            var deleteUrl = document.location.origin + "/admin/remove-test/" + userId;
             $(".role-requestIdentity").val(userId);
             $("#setroleform-role").val(roleId);
             $(".role-name").val(name);
             $(".role-email").val(email);
+            if (email.startsWith('dm4ctest.')) {
+                $("#remove-btn").attr("href", "/admin/remove-test?id=" + userId);
+                $("#remove-btn").show();
+            } else {
+                $("#remove-btn").hide();
+            }
             $("#update-modal").modal();
         });
     });
@@ -103,6 +110,9 @@ $this->registerJs($script);
                 </div>
                 <div class="modal-footer">
                     <?= Html::submitButton('Update', ['class' => 'btn btn-primary']) ?>
+                    <?=
+                        Html::a("Remove", "#", ['class' => 'btn btn-danger', 'id' => 'remove-btn']);
+                    ?>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
                 <?php ActiveForm::end() ?>

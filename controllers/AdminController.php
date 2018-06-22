@@ -22,13 +22,13 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'confirm', 'partner-manager'],
+                'only' => ['index', 'confirm', 'partner-manager', 'remove-test'],
                 'ruleConfig' => [
                     'class' => \app\components\filter\AccessRule::className(),
                 ],
                 'rules' => [
                     [
-                        'actions' => ['index', 'confirm', 'partner-manager'],
+                        'actions' => ['index', 'confirm', 'partner-manager', 'remove-test'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -158,6 +158,15 @@ class AdminController extends Controller
             'roles' => $roles,
             'message' => $message
         ]);
+    }
+
+    public function actionRemoveTest ($id) {
+        $user = \app\models\User::findOne($id);
+        if (!empty($user) && \app\components\Helper::startsWith($user->email, Yii::$app->params['testEmail'])) {
+            $user->delete();
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
 }

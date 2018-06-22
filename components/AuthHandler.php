@@ -40,7 +40,7 @@ class AuthHandler
             'source' => $this->client->getId(),
             'source_id' => $id,
         ])->one();
-        if (!Helper::endswith($email, '@topica.edu.vn') && !Helper::endswith($email, '@topica.asia'))
+        if (!Helper::validateEmail($email))
         {
             Yii::$app->getSession()->setFlash('error', [
                 Yii::t('app', 'Email must have domain of topica.edu.vn or topica.asia'),
@@ -85,27 +85,8 @@ class AuthHandler
                             'source_id' => (string)$id,
                         ]);
                         if ($auth->save()) {
-                            Yii::$app->mailer
-                                ->compose('registerSuccess', [
-                                    'email' => $email,
-                                    'link' => Yii::$app->request->hostInfo . yii\helpers\Url::to(['admin/confirm',
-                                    'u' => $requestIdentity])
-                                ])
-                                ->setFrom($adminEmail)
-                                ->setTo($adminEmail)
-                                ->setSubject('Submit registration for DM4C services')
-                                ->send();
-                            
-                            Yii::$app->mailer
-                                ->compose('registerInfo', [
-                                    'name' => $nickname,
-                                    'social' => true,
-                                    'password' => $defaultPassword
-                                ])
-                                ->setFrom($adminEmail)
-                                ->setTo($email)
-                                ->setSubject('Registation infomation')
-                                ->send();
+
+                            Helper::registerMail($email, $nickname, $requestIdentity, true);
                             
                             $transaction->commit();
                             Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');

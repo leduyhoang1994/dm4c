@@ -4,6 +4,7 @@ namespace app\models\forms;
 
 use Yii;
 use yii\base\Model;
+use app\components\Helper;
 
 /**
  * RegisterForm is the model behind the contact form.
@@ -43,6 +44,10 @@ class RegisterForm extends Model
 
     public function validateEmail($attribute)
     {
+        if (!Helper::validateEmail($this->$attribute)) {
+            $this->addError($attribute, 'Your email is invalid');
+            return;
+        }
         if (!empty(\app\models\User::findOne(['email' => $this->$attribute]))) {
             $this->addError($attribute, 'This email has already registered, please contact to admin');
         }
@@ -64,31 +69,7 @@ class RegisterForm extends Model
         ]);
         $user->generateAuthKey();
 
-        $defaultPassword = Yii::$app->params['defaultPassword'];
-        $adminEmail = Yii::$app->params['adminEmail'];
-
-        
-        Yii::$app->mailer
-        ->compose('registerSuccess', [
-            'email' => $this->email,
-            'link' => Yii::$app->request->hostInfo . yii\helpers\Url::to(['admin/confirm',
-            'u' => $requestIdentity])
-        ])
-        ->setFrom($adminEmail)
-        ->setTo($adminEmail)
-        ->setSubject('Submit registration for DM4C services')
-        ->send();
-                            
-        Yii::$app->mailer
-        ->compose('registerInfo', [
-            'name' => $nickname,
-            'social' => true,
-            'password' => $defaultPassword
-        ])
-        ->setFrom($adminEmail)
-        ->setTo($email)
-        ->setSubject('Registation infomation')
-        ->send();
+        Helper::registerMail($this->email,  $this->username, $requestIdentity, false);
 
         return $user->save();
     }
