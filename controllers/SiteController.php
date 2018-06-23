@@ -72,6 +72,9 @@ class SiteController extends Controller
             if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
                 $this->redirect(['admin/index']);
             }
+            if (Yii::$app->user->identity->role_id == \app\models\Role::GUEST || Yii::$app->user->identity->role_id == \app\models\Role::EDITOR) {
+                $this->redirect(['/hm4c']);
+            }
             $confirmed = Yii::$app->user->identity->request_identity == null;
             return $this->render('index-user',[
                 'confirmed' => $confirmed

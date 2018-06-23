@@ -1,4 +1,5 @@
 <?php
+
 return function () 
 {
     $val =  Yii::$app->user->identity->auth_key;
