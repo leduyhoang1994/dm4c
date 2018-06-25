@@ -112,6 +112,7 @@ class AdminController extends Controller
 
     public function actionPartnerManager()
     {
+        $this->layout = 'none';
         $model = new \app\models\forms\SetRoleForm;
         $roles = \yii\helpers\ArrayHelper::map(\app\models\Role::find()->all(), 'id', 'name');
         $message = [];

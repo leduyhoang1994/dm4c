@@ -3,6 +3,9 @@
     use yii\grid\ActionColumn;
     use yii\helpers\Html;
     use yii\widgets\ActiveForm;
+    use app\assets\AppAsset;
+
+    AppAsset::register($this);
     $this->title = 'Partners manager - DM4C project';
 ?>
 
