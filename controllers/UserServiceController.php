@@ -52,6 +52,9 @@ class UserServiceController extends ActiveController
         $result['role'] = $user->role->name;
         $result['role_id'] = $user->role->id;
         $result['auth_key'] = $user->auth_key;
+        if ($user->role->id == \app\models\Role::DEVELOPER) {
+            $result['token'] = $user->token;
+        }
 
         return $result;
     }

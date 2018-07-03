@@ -75,7 +75,7 @@ class SetRoleForm extends Model
         if ($user->token == null) {
             $sendMail = true;
         }
-        $user->token = $user->token == null ? \app\models\User::generateToken() : $user->token;
+        $user->token = $user->token == null && $user->role_id == \app\models\Role::DEVELOPER ? \app\models\User::generateToken() : $user->token;
         $result = [];
         
         if($user->save()){

@@ -69,6 +69,7 @@ class SiteController extends Controller
     {
         Yii::$app->view->title = "DM4C project";
         if (!Yii::$app->user->isGuest) {
+            $this->redirect(['/hm4c']);
             if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
                 $this->redirect(['/hm4c']);
             }
@@ -76,6 +77,9 @@ class SiteController extends Controller
                 $this->redirect(['/hm4c']);
             }
             $confirmed = Yii::$app->user->identity->request_identity == null;
+            if (Yii::$app->user->identity->role_id == \app\models\Role::DEVELOPER) {
+                $this->layout = "none";
+            }
             return $this->render('index-user',[
                 'confirmed' => $confirmed
             ]);
@@ -90,6 +94,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -147,6 +152,7 @@ class SiteController extends Controller
 
     public function actionRegister()
     {
+        $this->layout = 'login';
         $model = new \app\models\forms\RegisterForm;
         $params = Yii::$app->request->bodyParams;
 
