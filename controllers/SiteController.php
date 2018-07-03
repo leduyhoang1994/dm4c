@@ -70,13 +70,15 @@ class SiteController extends Controller
         Yii::$app->view->title = "DM4C project";
         if (!Yii::$app->user->isGuest) {
             // $this->redirect(['/hm4c']);
-            $url = $_SERVER['HTTP_HOST']."/hm4c";
-            header("refresh: 2; url=$url");
-            $val =  Yii::$app->user->identity->auth_key;
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+            $domainName = $_SERVER['HTTP_HOST'].'/hm4c';
+            $url = $protocol.$domainName;
+            
+            $this->layout = 'login';
+            return $this->render('redirect', [
+                'url' => $url
+            ]);
 
-            setcookie('_identity', $val, time() + (86400 * 30), "/");
-            echo "Đang chuyển hướng, vui lòng đợi trong giây lát...";
-            exit;
             if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
                 $this->redirect(['/hm4c']);
             }

@@ -44,10 +44,15 @@ LoginAsset::register($this);
         z-index: 0;
     }
 
-    .site-login,.user-create {
+    .site-login,.user-create,.redirect {
         z-index: 1;
         position: relative;
         margin-top: 10%;
+    }
+
+    .redirect {
+        color: white;
+        height: 300px;
     }
 
     .bg-madata {
