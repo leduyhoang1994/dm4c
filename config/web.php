@@ -118,7 +118,7 @@ $config = [
                         'POST login' => 'login'
                     ],
                 ],
-                '' => '/site/login',
+                '' => '/site/index',
                 '<controller:\w+>' => '<controller>/index',
                 '<controller>/<action>' => '<controller>/<action>',
                 '<action:\w+>' => 'user/<action>', // <-- use UserController by default

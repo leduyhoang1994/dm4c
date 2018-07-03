@@ -83,6 +83,8 @@ class SiteController extends Controller
             return $this->render('index-user',[
                 'confirmed' => $confirmed
             ]);
+        } else {
+            $this->redirect(['/site/login']);
         }
         return $this->render('index');
     }
