@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row">
             <div class="col-md-6 text-center align-middle forgot">
-                <a class="dm4c-a" href="#">Forgot your password?</a>
+                <a class="dm4c-a disabled" data-toggle="tooltip" title="Comming soon!" href="#">Forgot your password?</a>
             </div>
             <div class="col-md-6 text-center">
                 <?= Html::submitButton('Sign in', ['class' => 'btn btn-primary bg-madata', 'name' => 'login-button']) ?>

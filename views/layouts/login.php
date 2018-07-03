@@ -92,6 +92,15 @@ AppAsset::register($this);
     .btn {
         font-weight: bold;
     }
+
+    a.disabled {
+        /* Make the disabled links grayish*/
+        color: gray;
+        /* And disable the pointer events */
+        cursor: not-allowed;
+        text-decoration: none !important;
+        /* pointer-events: none; */
+    }
 </style>
 
 <div class="wrap">
