@@ -69,7 +69,9 @@ class SiteController extends Controller
     {
         Yii::$app->view->title = "DM4C project";
         if (!Yii::$app->user->isGuest) {
-            $this->redirect(['/hm4c']);
+            // $this->redirect(['/hm4c']);
+            header("Location: ".$_SERVER['SERVER_HOST']."/hm4c");
+            exit;
             if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
                 $this->redirect(['/hm4c']);
             }
