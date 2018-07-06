@@ -40,7 +40,7 @@ LoginAsset::register($this);
         left: 0;
         width: 100%; 
         height: 100%;  
-        opacity: .9; 
+        opacity: .7; 
         z-index: 0;
     }
 
