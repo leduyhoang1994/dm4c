@@ -41,7 +41,7 @@ $this->title = 'Register to DM4C';
         ]) ?>
 
         <div class="row text-center">
-            <?= Html::submitButton('Register', ['class' => 'btn btn-primary bg-madata']) ?>
+            <?= Html::submitButton('Register', ['class' => 'btn btn-primary bg-madata-black']) ?>
             <div class="col-md-12" style="color: #fff; padding: 10px 0px">
                 -Or-
             </div>

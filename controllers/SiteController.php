@@ -69,9 +69,9 @@ class SiteController extends Controller
     {
         Yii::$app->view->title = "DM4C project";
         if (!Yii::$app->user->isGuest) {
-            // $this->redirect(['/hm4c']);
+            // $this->redirect(['/dashboard']);
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-            $domainName = $_SERVER['HTTP_HOST'].'/hm4c';
+            $domainName = $_SERVER['HTTP_HOST'].'/dashboard';
             $url = $protocol.$domainName;
             
             $this->layout = 'login';
@@ -80,10 +80,10 @@ class SiteController extends Controller
             ]);
 
             if (Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR) {
-                $this->redirect(['/hm4c']);
+                $this->redirect(['/dashboard']);
             }
             if (Yii::$app->user->identity->role_id == \app\models\Role::GUEST || Yii::$app->user->identity->role_id == \app\models\Role::EDITOR) {
-                $this->redirect(['/hm4c']);
+                $this->redirect(['/dashboard']);
             }
             $confirmed = Yii::$app->user->identity->request_identity == null;
             if (Yii::$app->user->identity->role_id == \app\models\Role::DEVELOPER) {

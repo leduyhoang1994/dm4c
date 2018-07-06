@@ -84,6 +84,7 @@ LoginAsset::register($this);
         text-decoration: none !important;
         width: 100%;
         font-weight: bold;
+        background-color: #d89f45 !important;
     }
 
     .help-block{
@@ -105,6 +106,12 @@ LoginAsset::register($this);
         cursor: not-allowed;
         text-decoration: none !important;
         /* pointer-events: none; */
+    }
+
+    .bg-madata-black {
+        background: #333;
+        color : white;
+        width: 100%;
     }
 </style>
 
