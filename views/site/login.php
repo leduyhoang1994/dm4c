@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-md-2 col-md-offset-0 form-login">
     <div class="logo-login">
-        <img src="/images/SF18_logo.png">
+        <img src="/images/SF18_list_master.png">
     </div>
     <div class="tile-login">
         <p>Sign in by Gmail</p>
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="title-bottom">
-    <p>CoppyRight@2018 - <span class="item-title-bottom">TN18</span> - Một sản phẩm của dự án SF18</p>
+    <p>CoppyRight@2018 - <span class="item-title-bottom">List Master</span> - Một sản phẩm của dự án SF18</p>
 </div>
 
 <script>
