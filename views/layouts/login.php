@@ -23,9 +23,115 @@ LoginAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
     <link href="/css/font-awesome.css" rel="stylesheet">
+
+
+    <style>
+        body,*{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        .main-container{
+            background-image: url(<?= Yii::$app->request->baseUrl.'/images/bg_login.jpg' ?>);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+        .main-body{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .logo-login img{
+            float: none;
+            margin: 0 auto;
+            display: block;
+            width: 100%;
+        }
+        .form-login{
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+        }
+        .submit-login{
+            background-color: #e89e35;
+            float: none;
+            margin: 0 auto;
+            display: block;
+            height: 44px;
+            padding: 4px 0;
+        }
+        .submit-login:hover{
+            background-color: #af6805;
+        }
+        .submit-login i{
+            color: #fff;
+            font-size: 24px;
+        }
+        .tile-login{
+            position: relative;
+            padding: 20px 0;
+        }
+        .tile-login p{
+            text-align: center;
+            color: #fff;
+            opacity: 0.7;
+            font-weight: 400;
+        }
+        .tile-login p:after{
+            color: #fff;
+            display: block;
+            content: "";
+            position: absolute;
+            top: 45%;
+            width: 25%;
+            height: 1px;
+            background: white;
+            opacity: 0.3;
+        }
+        .tile-login p:before{
+            color: #fff;
+            display: block;
+            content: "";
+            position: absolute;
+            top: 45%;
+            width: 25%;
+            height: 1px;
+            background: white;
+            right: 0;
+            opacity: 0.3;
+        }
+        .title-bottom{
+            position: absolute;
+            bottom: 10px;
+            float: none;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .title-bottom p{
+            color: #fff;
+            text-align: center;
+        }
+        .item-title-bottom{
+            color:  #e89e35;
+        }
+    </style>
 </head>
 <body>
-<?php $this->beginBody() ?>
+
+<div class="main-container">
+    <div class="main-body">
+        <?php $this->beginBody() ?>
+    </div>
+</div>
 
 <?= $content ?>
 <div class="wrap">
