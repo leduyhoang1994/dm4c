@@ -22,99 +22,12 @@ LoginAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link href="/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
 <?php $this->beginBody() ?>
 
-<style>
-    .wrap {
-        background: url(<?= Yii::$app->request->baseUrl.'/images/bg_login.jpg' ?>);
-        background-size: cover;
-        z-index: 1;
-    }
-    .wrap::before { 
-        background-color: black;
-        content: "";
-        position: fixed;
-        top: 0; 
-        left: 0;
-        width: 100%; 
-        height: 100%;  
-        opacity: .7; 
-        z-index: 0;
-    }
-
-    .site-login,.user-create,.redirect {
-        z-index: 1;
-        position: relative;
-        margin-top: 10%;
-    }
-
-    .redirect {
-        color: white;
-        height: 300px;
-    }
-
-    .bg-madata {
-        background-color: #d89f45 !important;
-        width: 100%;
-    }
-
-    .radius-box {
-        padding: 20px 0px;
-        margin: 10px 0px;
-        background: rgba(51, 51, 51, 0.30980392156862746);
-        color: #fff;
-    }
-
-    .dm4c-a{
-        color: #d89f45;
-    }
-
-    .forgot{
-        margin-top: 8px;
-    }
-
-    .btn-google-plus{
-        display: inline-block;
-        height: 38px;
-        line-height: 38px;
-        padding: 0px 16px;
-        border-radius: 2px;
-        text-decoration: none !important;
-        width: 100%;
-        font-weight: bold;
-        background-color: #d89f45 !important;
-    }
-
-    .help-block{
-        display: block;
-    }
-
-    #w1 {
-        width: 100%
-    }
-
-    .btn {
-        font-weight: bold;
-    }
-
-    a.disabled {
-        /* Make the disabled links grayish*/
-        color: gray;
-        /* And disable the pointer events */
-        cursor: not-allowed;
-        text-decoration: none !important;
-        /* pointer-events: none; */
-    }
-
-    .bg-madata-black {
-        background: #333;
-        color : white;
-        width: 100%;
-    }
-</style>
-
+<?= $content ?>
 <div class="wrap">
     <div class="hidden">
         <?php
@@ -156,7 +69,6 @@ LoginAsset::register($this);
 
     <div class="container" style="padding-top: 0px">
         <?= Alert::widget() ?>
-        <?= $content ?>
     </div>
 </div>
 
