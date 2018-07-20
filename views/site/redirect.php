@@ -10,5 +10,5 @@
         // Move to a new location or you can do something else
         window.location.href = "<?= $url ?>";
 
-    }, 200000);
+    }, 2000);
 </script>
