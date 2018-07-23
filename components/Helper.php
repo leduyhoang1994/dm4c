@@ -62,4 +62,20 @@ class Helper
         ->setTo($email)->setSubject('Registation infomation')
         ->send();
     }
+
+    public static function buildTree($elements, $parentId = 0) {
+        $branch = array();
+
+        foreach ($elements as $element) {
+            if ($element['parent_id'] == $parentId) {
+                $children = static::buildTree($elements, $element['id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }
+                $branch[] = $element;
+            }
+        }
+
+        return $branch;
+    }
 }

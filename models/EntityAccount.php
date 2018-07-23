@@ -39,7 +39,7 @@ class EntityAccount extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'status'], 'integer'],
+            [['id', 'parent_id', 'level', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name_native', 'short_name', 'name_en'], 'string', 'max' => 255],
             [['complete_code', 'short_code', 'tax_code', 'location'], 'string', 'max' => 32],

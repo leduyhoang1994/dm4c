@@ -39,7 +39,7 @@ class Activity extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'tot', 'toa', 'cf', 'status'], 'integer'],
+            [['id', 'parent_id', 'level', 'tot', 'toa', 'cf', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'complete_code', 'shortened_code'], 'string', 'max' => 32],
             [['body', 'formula', 'define'], 'string', 'max' => 300],

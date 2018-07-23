@@ -39,7 +39,7 @@ class CostProfit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'decision_number', 'status'], 'integer'],
+            [['id', 'parent_id', 'level', 'decision_number', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['division_name_vn', 'division_name_en', 'link_pdf'], 'string', 'max' => 255],
             [['complete_code', 'shortened_code', 'proposal', 'approved'], 'string', 'max' => 32],

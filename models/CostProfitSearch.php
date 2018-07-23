@@ -5,6 +5,7 @@ use yii\base\Model;
 
 class CostProfitSearch extends Model 
 {
+    public $id;
     public $parent_id;
     public $level;
     public $division_name_vn;

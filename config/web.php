@@ -13,6 +13,13 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'on beforeAction' => require(__DIR__ . '/before-action.php'),
+    'controllerMap' => [
+        'cdt-list' => 'app\controllers\CostProfitController',
+        'pt-list' => 'app\controllers\EntityAccountController',
+        'sp-list' => 'app\controllers\ProductController',
+        'hd-list' => 'app\controllers\ActivitieController',
+        'user-services' => 'app\controllers\UserServiceController',
+    ],
     'components' => [
         'request' => [
             'enableCookieValidation' => true,
@@ -80,34 +87,39 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'entity-account',
+                    'controller' => 'pt-list',
                     'only' => ['index', 'view', 'options', 'search'],
+                    'pluralize'=>false,
                     'extraPatterns' => [
                         'POST search' => 'search'
                     ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'product',
+                    'controller' => 'sp-list',
                     'only' => ['index', 'view', 'options', 'search'],
+                    'pluralize'=>false,
                     'extraPatterns' => [
                         'POST search' => 'search'
                     ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'activitie',
+                    'controller' => 'hd-list',
                     'only' => ['index', 'view', 'options', 'search'],
+                    'pluralize'=>false,
                     'extraPatterns' => [
                         'POST search' => 'search'
                     ],
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'cost-profit',
+                    'controller' => 'cdt-list',
                     'only' => ['index', 'view', 'options', 'search'],
+                    'pluralize'=>false,
                     'extraPatterns' => [
-                        'POST search' => 'search'
+                        'POST search' => 'search',
+                        'GET nested' => 'nested'
                     ],
                 ],
                 [
@@ -124,7 +136,7 @@ $config = [
                 '<action:\w+>' => 'user/<action>', // <-- use UserController by default
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
         /*

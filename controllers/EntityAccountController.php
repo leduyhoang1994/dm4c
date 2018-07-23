@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
+use app\components\Helper;
 
 class EntityAccountController extends ActiveController implements Dm4cController
 {
@@ -46,7 +47,7 @@ class EntityAccountController extends ActiveController implements Dm4cController
         // You may load filters from any source. For example,
         // if you prefer JSON in request body,
         // use Yii::$app->request->getBodyParams() below:
-        if (isset(Yii::$app->request->getBodyParams()['filter']) && $filter->load(Yii::$app->request->getBodyParams()['filter'])) { 
+        if (isset(Yii::$app->request->getBodyParams()['filter']) && $filter->load(Yii::$app->request->getBodyParams())) {
             $filterCondition = $filter->build();
             if ($filterCondition === false) {
                 // Serializer would get errors out of it
@@ -61,6 +62,14 @@ class EntityAccountController extends ActiveController implements Dm4cController
         
         return new \yii\data\ActiveDataProvider([
             'query' => $query,
+        ]);
+    }
+
+    public function actionNested() {
+        $data = \app\models\EntityAccount::find()->asArray()->all();
+        $tree = Helper::buildTree($data);
+        return new \yii\data\ArrayDataProvider([
+            'allModels' => $tree,
         ]);
     }
 }

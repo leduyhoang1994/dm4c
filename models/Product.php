@@ -36,7 +36,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'level', 'payment_outside', 'payment_inside', 'status'], 'integer'],
+            [['id', 'parent_id', 'level', 'payment_outside', 'payment_inside', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['product_name_vn', 'product_name_en'], 'string', 'max' => 255],
             [['complete_code', 'shortened_code'], 'string', 'max' => 32],

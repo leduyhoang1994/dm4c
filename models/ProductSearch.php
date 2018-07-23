@@ -5,6 +5,7 @@ use yii\base\Model;
 
 class ProductSearch extends Model 
 {
+    public $id;
     public $parent_id;
     public $level;
     public $product_name_vn;

@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="title-bottom">
-    <p>CoppyRight@2018 - <span class="item-title-bottom">List Master</span> - Một sản phẩm của dự án SF18</p>
+    <p>Copyright@2018 - <span class="item-title-bottom">List Master</span> - Một sản phẩm của dự án SF18</p>
 </div>
 
 <script>

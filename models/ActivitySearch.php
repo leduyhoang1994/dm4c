@@ -5,6 +5,7 @@ use yii\base\Model;
 
 class ActivitySearch extends Model 
 {
+    public $id;
     public $parent_id;
     public $level;
     public $name;
