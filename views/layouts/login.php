@@ -61,14 +61,14 @@ LoginAsset::register($this);
     $message = "";
     if (Yii::$app->session->hasFlash('success')):
         $status = "success";
-        $message = Yii::$app->session->getFlash('success');
+        $message = is_array(Yii::$app->session->getFlash('success')) ? array_values(Yii::$app->session->getFlash('success'))[0] : Yii::$app->session->getFlash('success');
     endif;
     if (Yii::$app->session->hasFlash('error')):
-        $message = Yii::$app->session->getFlash('error');
+        $message = is_array(Yii::$app->session->getFlash('error')) ? array_values(Yii::$app->session->getFlash('error'))[0] : Yii::$app->session->getFlash('error');
         $status = "danger";
     endif;
     if (Yii::$app->session->hasFlash('info')):
-        $message = Yii::$app->session->getFlash('info');
+        $message = is_array(Yii::$app->session->getFlash('info')) ? array_values(Yii::$app->session->getFlash('info'))[0] : Yii::$app->session->getFlash('info');
         $status = "info";
     endif;
 
