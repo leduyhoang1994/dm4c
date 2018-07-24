@@ -44,10 +44,6 @@ class RegisterForm extends Model
 
     public function validateEmail($attribute)
     {
-        if (!Helper::validateEmail($this->$attribute)) {
-            $this->addError($attribute, 'Your email is invalid');
-            return;
-        }
         if (!empty(\app\models\User::findOne(['email' => $this->$attribute]))) {
             $this->addError($attribute, 'This email has already registered, please contact to admin');
         }
@@ -70,7 +66,7 @@ class RegisterForm extends Model
         $user->generateAuthKey();
 
         Helper::registerMail($this->email,  $this->username, $requestIdentity, false);
-
-        return $user->save();
+        $user->save();
+        return $user;
     }
 }

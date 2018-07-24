@@ -172,8 +172,11 @@ class SiteController extends Controller
                 echo \yii\helpers\Html::errorSummary($model);
             }
             else {
-                if ($model->register()) {
+                $user = $model->register();
+                if ($user) {
+                    Yii::$app->user->login($user, 3600 * 24);
                     Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
+                    $this->redirect(['/']);
                 }
             }
         }

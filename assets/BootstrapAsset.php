@@ -15,20 +15,21 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class LoginAsset extends AssetBundle
+class BootstrapAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        "/css/site.css"
+//        'css/material.min.css',
+//        'https://fonts.googleapis.com/icon?family=Material+Icons',
+//        "/css/custom/bootstrap.css",
+        "/css/custom/bootstrap.min.css",
+        "/css/font-awesome.css"
     ];
     public $js = [
-        "/js/jquery.js",
-        "/js/bootstrap.min.js",
-        "/js/bootstrap-notify.min.js",
-        "/js/custom.js"
+        "/js/bootstrap.min.js"
     ];
     public $depends = [
-        '\app\assets\BootstrapAsset',
+//        '\app\assets\AppAsset',
     ];
 }

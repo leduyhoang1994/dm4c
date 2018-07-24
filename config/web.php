@@ -14,10 +14,10 @@ $config = [
     ],
     'on beforeAction' => require(__DIR__ . '/before-action.php'),
     'controllerMap' => [
-        'cdt-list' => 'app\controllers\CostProfitController',
-        'pt-list' => 'app\controllers\EntityAccountController',
-        'sp-list' => 'app\controllers\ProductController',
-        'hd-list' => 'app\controllers\ActivitieController',
+        'cdt_list' => 'app\controllers\CostProfitController',
+        'pn_list' => 'app\controllers\EntityAccountController',
+        'sp_list' => 'app\controllers\ProductController',
+        'hd_list' => 'app\controllers\ActivitieController',
         'user-services' => 'app\controllers\UserServiceController',
     ],
     'components' => [
@@ -87,7 +87,7 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'pt-list',
+                    'controller' => 'pn_list',
                     'only' => ['index', 'view', 'options', 'search'],
                     'pluralize'=>false,
                     'extraPatterns' => [
@@ -96,7 +96,7 @@ $config = [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'sp-list',
+                    'controller' => 'sp_list',
                     'only' => ['index', 'view', 'options', 'search'],
                     'pluralize'=>false,
                     'extraPatterns' => [
@@ -105,7 +105,7 @@ $config = [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'hd-list',
+                    'controller' => 'hd_list',
                     'only' => ['index', 'view', 'options', 'search'],
                     'pluralize'=>false,
                     'extraPatterns' => [
@@ -114,7 +114,7 @@ $config = [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'cdt-list',
+                    'controller' => 'cdt_list',
                     'only' => ['index', 'view', 'options', 'search'],
                     'pluralize'=>false,
                     'extraPatterns' => [
@@ -153,12 +153,12 @@ $config = [
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
+//    $config['bootstrap'][] = 'debug';
+//    $config['modules']['debug'] = [
+//        'class' => 'yii\debug\Module',
+//        // uncomment the following to add your IP if you are not connecting from localhost.
+//        //'allowedIPs' => ['127.0.0.1', '::1'],
+//    ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
