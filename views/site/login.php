@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="button-login col-md-12">
         <!--                <button type="button" class="btn btn-default submit-login col-md-12"><i class="fa fa-google-plus" aria-hidden="true"></i></button>-->
         <?php use yii\authclient\widgets\AuthChoice; ?>
-        <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false]); ?>
+        <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => true, 'popupMode' => true,]); ?>
         <?php foreach ($authAuthChoice->getClients() as $client): ?>
             <?php
             echo $authAuthChoice->clientLink($client,

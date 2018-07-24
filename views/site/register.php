@@ -63,7 +63,7 @@ $this->title = 'Register to DM4C';
         </div>
         <div class="button-login">
             <?php use yii\authclient\widgets\AuthChoice; ?>
-            <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false]); ?>
+            <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth'], 'autoRender' => false, 'popupMode' => true,]); ?>
             <?php foreach ($authAuthChoice->getClients() as $client): ?>
                 <?php
                 echo $authAuthChoice->clientLink($client,
