@@ -38,6 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="title-bottom col-md-4">
-    <h6>ĐÂY LÀ ỨNG DỤNG LƯU TRỮ CÁC DANH MỤC QUẢN TRỊ CỦA TOPICA (VD: DM4C: SP, CDT,…, DANH MỤC NHÂN SỰ: NGẠCH, BẬC,…)</h6>
+<!--    <h6>ĐÂY LÀ ỨNG DỤNG LƯU TRỮ CÁC DANH MỤC QUẢN TRỊ CỦA TOPICA (VD: DM4C: SP, CDT,…, DANH MỤC NHÂN SỰ: NGẠCH, BẬC,…)</h6>-->
     <p class="no-margin-bottom">Copyright@2018 - <span class="item-title-bottom">SF18.Listmaster</span> - Một sản phẩm của dự án SF18</p>
 </div>

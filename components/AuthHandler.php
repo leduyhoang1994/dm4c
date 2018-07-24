@@ -43,7 +43,7 @@ class AuthHandler
         if (!Helper::validateEmail($email))
         {
             Yii::$app->getSession()->setFlash('error', [
-                Yii::t('app', 'Email must have domain of topica.edu.vn or topica.asia'),
+                Yii::t('app', 'Your email doesnt exist. Please create an account to login!'),
             ]);
             return;
         }
@@ -87,7 +87,7 @@ class AuthHandler
                         if ($auth->save()) {
 
                             Helper::registerMail($email, $nickname, $requestIdentity, true);
-                            
+
                             $transaction->commit();
                             Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
                             Yii::$app->user->login($user, 3600 * 24);

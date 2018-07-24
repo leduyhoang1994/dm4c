@@ -38,7 +38,8 @@ $this->title = 'Register to DM4C';
                                         <div class="validation-message">{error}</div>
                                     </div>'
             ])->passwordInput(['id' => 'password', 'class' => "form-control", 'placeholder' => "Password"]) ?>
-            <?= $form->field($model, 'verifyCode', ['template' => '{input}'])->widget(\yii\captcha\Captcha::classname(), [
+            <?= $form->field($model, 'verifyCode', ['template' => '{input}
+                    <div class="validation-message">{error}</div></div>'])->widget(\yii\captcha\Captcha::classname(), [
                 'template' => '
                 <div class="form-group capcha">
                     <div class="col-md-6 text-capcha">
@@ -49,8 +50,7 @@ $this->title = 'Register to DM4C';
                     </div>
                 </div>
                 <div class="form-group">
-                    {input}
-                </div>',
+                    {input}',
                 'options' => [
                     'placeholder' => 'Enter the code here',
                     'class' => 'form-control'
