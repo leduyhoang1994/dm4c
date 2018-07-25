@@ -1,3 +1,6 @@
+<?php
+    $this->title = "List Master - redirect";
+?>
 <div class="col-md-12 text-center redirect" style="color: #fff; margin-top: 50px">
     <p>Đăng nhập thành công !</p>
     <p>Tự động điều hướng trong 2s</p>

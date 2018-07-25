@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'DM4C PROJECT',
+    'name' => 'List Master',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
