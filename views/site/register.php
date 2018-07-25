@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Register to DM4C';
+$this->title = 'List Master - Sign up';
 ?>
 <?php $this->beginBlock('myCss') ?>
     <link href="/css/custom/loginform.css" rel="stylesheet">

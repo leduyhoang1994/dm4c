@@ -8,7 +8,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'List Master - Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php $this->beginBlock('myCss') ?>
