@@ -15,18 +15,21 @@
     </div>
 
     <div class="body-content">
-
+        <?php \yii\widgets\Pjax::begin(); ?>
         <?= GridView::widget([
             'dataProvider' => $usersData,
+            'filterModel' => $searchModel,
             'columns' => [
                 'username',
                 'email',
                 [
                     'label' => 'Role',
-                    'attribute' => 'role_id',
-                    'value' => function ($model) {
-                        return $model->role->name;
-                    },
+                    'attribute' => 'roleName',
+                    'value' => 'role.name'
+//                    'attribute' => 'role_id',
+//                    'value' => function ($model) {
+//                        return $model->role->name;
+//                    },
                 ],
                 [
                     'class' => ActionColumn::className(),
@@ -46,6 +49,7 @@
                 ],
             ],
         ]) ?>
+        <?php \yii\widgets\Pjax::end(); ?>
     </div>
 
 <?php

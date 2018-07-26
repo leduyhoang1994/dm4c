@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\UserSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -135,8 +136,12 @@ class AdminController extends Controller
         }
 
         $query = \app\models\User::find()
-            ->select('id, username, email, role_id')
-            ->with('role');
+            ->select('user.id, username, email, role_id')->innerJoinWith('role', true);;
+
+
+        $userSearch = new UserSearch();
+
+        $query = $userSearch->search($query, Yii::$app->request->queryParams);
 
         $usersData = new \yii\data\ActiveDataProvider([
             'query' => $query,
@@ -145,15 +150,15 @@ class AdminController extends Controller
             ],
             'sort' => [
                 'defaultOrder' => [
-                    'id' => SORT_ASC,
                     'email' => SORT_DESC,
                     'username' => SORT_ASC, 
-                    'role_id' => SORT_ASC, 
+                    'role_id' => SORT_ASC,
                 ]
             ],
         ]);
 
         return $this->render('partner', [
+            'searchModel' => $userSearch,
             'usersData' => $usersData,
             'model' => $model,
             'roles' => $roles,
