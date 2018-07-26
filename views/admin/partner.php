@@ -74,6 +74,27 @@ $script = <<< JS
             $("#update-modal").modal();
         });
     });
+    $(document).on('pjax:success', function() {
+        $( ".update-button").unbind( "click" );
+        $(".update-button").click(function (e){
+            var userId = $(e.currentTarget).attr("user-id");
+            var roleId = $(e.currentTarget).attr("current-role");
+            var name = $(e.currentTarget).attr("name");
+            var email = $(e.currentTarget).attr("email");
+            var deleteUrl = document.location.origin + "/admin/remove-test/" + userId;
+            $(".role-requestIdentity").val(userId);
+            $("#setroleform-role").val(roleId);
+            $(".role-name").val(name);
+            $(".role-email").val(email);
+            if (email.startsWith('dm4ctest.')) {
+                $("#remove-btn").attr("href", "/admin/remove-test?id=" + userId);
+                $("#remove-btn").show();
+            } else {
+                $("#remove-btn").hide();
+            }
+            $("#update-modal").modal();
+        });
+    });
 JS;
 $this->registerJs($script);
 ?>
