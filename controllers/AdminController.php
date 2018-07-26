@@ -146,7 +146,7 @@ class AdminController extends Controller
         $usersData = new \yii\data\ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 50
             ],
             'sort' => [
                 'defaultOrder' => [
