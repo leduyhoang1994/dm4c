@@ -15,7 +15,7 @@ $config = [
     'on beforeAction' => require(__DIR__ . '/before-action.php'),
     'controllerMap' => [
         'cdt_list' => 'app\controllers\CostProfitController',
-        'pn_list' => 'app\controllers\EntityAccountController',
+        'pt_list' => 'app\controllers\EntityAccountController',
         'sp_list' => 'app\controllers\ProductController',
         'hd_list' => 'app\controllers\ActivitieController',
         'user-services' => 'app\controllers\UserServiceController',
@@ -87,7 +87,7 @@ $config = [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule', 
-                    'controller' => 'pn_list',
+                    'controller' => 'pt_list',
                     'only' => ['index', 'view', 'options', 'search'],
                     'pluralize'=>false,
                     'extraPatterns' => [
