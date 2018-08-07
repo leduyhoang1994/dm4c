@@ -22,9 +22,9 @@ class UserSearch extends User
 
     public function search($query, $params) {
         $this->load($params);
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'email', $this->email])
-        ->andFilterWhere(['like', 'role.name', $this->roleName]);
+        $query->andFilterWhere(['like', 'username', trim($this->username)])
+            ->andFilterWhere(['like', 'email', trim($this->email)])
+        ->andFilterWhere(['like', 'role.name', trim($this->roleName)]);
         return $query;
     }
 }

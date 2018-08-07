@@ -13,12 +13,19 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'on beforeAction' => require(__DIR__ . '/before-action.php'),
+    'on afterAction' => require(__DIR__ . '/after-action.php'),
     'controllerMap' => [
         'cdt_list' => 'app\controllers\CostProfitController',
         'pt_list' => 'app\controllers\EntityAccountController',
         'sp_list' => 'app\controllers\ProductController',
         'hd_list' => 'app\controllers\ActivitieController',
+        'common_list' => 'app\controllers\CommonlistController',
         'user-services' => 'app\controllers\UserServiceController',
+    ],
+    'modules' => [
+        'actionlog' => [
+            'class' => 'cakebake\actionlog\Module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -120,6 +127,17 @@ $config = [
                     'extraPatterns' => [
                         'POST search' => 'search',
                         'GET nested' => 'nested'
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'common_list',
+                    'only' => ['index', 'view', 'options', 'search'],
+                    'pluralize'=>false,
+                    'extraPatterns' => [
+                        'GET nested' => 'nested',
+                        'GET <slug:\w+>' => 'index',
+                        'POST <slug:\w+>/search' => 'search',
                     ],
                 ],
                 [

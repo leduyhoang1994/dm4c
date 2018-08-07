@@ -78,4 +78,16 @@ class Helper
 
         return $branch;
     }
+
+    public static function getArrayKeys(array $array)
+    {
+        $keys = array();
+        foreach ($array as $key => $value) {
+            $keys[] = $key;
+            if (is_array($array[$key])) {
+                $keys = array_merge($keys, static::getArrayKeys($array[$key]));
+            }
+        }
+        return $keys;
+    }
 }

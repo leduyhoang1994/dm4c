@@ -7,6 +7,7 @@ use app\components\Helper;
 use Yii;
 use yii\authclient\ClientInterface;
 use yii\helpers\ArrayHelper;
+use cakebake\actionlog\model\ActionLog;
 
 /**
  * AuthHandler handles successful authentication via Yii auth component
@@ -53,6 +54,7 @@ class AuthHandler
                 /* @var User $user */
                 $user = $auth->user;
                 Yii::$app->user->login($user, 3600 * 24);
+                ActionLog::add('success');
             } else { // signup
                 if ($email !== null && User::find()->where(['email' => $email])->exists()) {
                     Yii::$app->getSession()->setFlash('error', [
@@ -91,6 +93,7 @@ class AuthHandler
                             $transaction->commit();
                             Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
                             Yii::$app->user->login($user, 3600 * 24);
+                            ActionLog::add('register');
                         } else {
                             Yii::$app->getSession()->setFlash('error', [
                                 Yii::t('app', 'Unable to save {client} account: {errors}', [
