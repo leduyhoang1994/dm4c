@@ -59,10 +59,16 @@ class ActivitieController extends ActiveController implements Dm4cController
         if ($filterCondition !== null) {
             $query->andWhere($filterCondition);
         }
-        
-        return new \yii\data\ActiveDataProvider([
+
+        $provider = [
             'query' => $query,
-        ]);
+        ];
+
+        if (isset(Yii::$app->request->getBodyParams()['pagination']) && !Yii::$app->request->getBodyParams()['pagination']) {
+            $provider['pagination'] = false;
+        }
+        
+        return new \yii\data\ActiveDataProvider($provider);
     }
 
     public function actionNested() {

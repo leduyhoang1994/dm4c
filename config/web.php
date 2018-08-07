@@ -136,8 +136,8 @@ $config = [
                     'pluralize'=>false,
                     'extraPatterns' => [
                         'GET nested' => 'nested',
-                        'GET <slug:\w+>' => 'index',
-                        'POST <slug:\w+>/search' => 'search',
+                        'GET <slug>' => 'index',
+                        'POST <slug>/search' => 'search',
                     ],
                 ],
                 [
