@@ -46,6 +46,7 @@ AppAsset::register($this);
                 'url' => ['/admin/partner-manager'],
                 'visible' => (!Yii::$app->user->isGuest && Yii::$app->user->identity->role_id == \app\models\Role::ADMINISTRATOR)
             ],
+            ['label' => 'Log', 'url' => ['/actionlog/log/index']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
