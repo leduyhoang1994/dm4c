@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\forms\CustomMailForm;
 use Yii;
 use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
@@ -57,5 +58,20 @@ class UserServiceController extends ActiveController
         }
 
         return $result;
+    }
+
+    public function actionSendEmail() {
+        $params = Yii::$app->request->bodyParams;
+
+        $mailForm = new CustomMailForm();
+        $mailForm->load($params, "");
+
+        if (!$mailForm->load($params, '') && !$mailForm->validate()) {
+            $errors = $mailForm->getErrors();
+            reset($errors);
+            throw new \yii\web\BadRequestHttpException(key($errors) . " : " . $errors[key($errors)][0]);
+        }
+
+        return $mailForm->send();
     }
 }

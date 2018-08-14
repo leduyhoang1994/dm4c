@@ -69,8 +69,8 @@ $config = [
                 'host' => 'smtp.gmail.com',
                 'port' => '587',
  
-                'username' => 'dm4c@topica.asia',
-                'password' => 'topicahn',
+                'username' => 'listmaster@topica.asia',
+                'password' => 'befyssucwbdclscf',
             ]
         ],
         'log' => [
@@ -143,9 +143,10 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'user-service',
-                    'only' => ['login'],
+                    'only' => ['login', 'send-mail'],
                     'extraPatterns' => [
-                        'POST login' => 'login'
+                        'POST login' => 'login',
+                        'POST send-mail' => 'send-mail'
                     ],
                 ],
                 '' => '/site/index',
