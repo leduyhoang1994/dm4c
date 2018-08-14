@@ -86,7 +86,7 @@ class SetRoleForm extends Model
                 Yii::$app->mailer->compose('submitSuccess', [
                     'token' => $user->token,
                 ])
-                    ->setFrom('dm4c@topica.asia')
+                    ->setFrom('listmaster@topica.asia')
                     ->setTo($user->email)
                     ->setSubject('Submit registration for DM4C services')
                     ->send();

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'dm4c@topica.asia',
-    'defaultPassword' => 'topica@123',
+    'adminEmail' => 'listmaster@topica.asia',
+    'defaultPassword' => 'befyssucwbdclscf',
     'testEmail' => 'dm4ctest.'
 ];

@@ -63,6 +63,27 @@ class Helper
         ->send();
     }
 
+    public static function sendMail($subject, $content, $to = null, $ccAdmins = true)
+    {
+        $adminEmail = Yii::$app->params['adminEmail'];
+
+        $selectAdmin = User::find()->select('email')->where(['role_id' => Role::ADMINISTRATOR])->asArray()->all();
+        $adminEmails = array_column($selectAdmin, 'email');
+        $receiver = $to == null ? $adminEmails : $to;
+
+        $mailer = Yii::$app->mailer
+            ->compose('customMail', compact('content'))
+            ->setFrom($adminEmail)
+            ->setTo($receiver);
+
+        if ($ccAdmins) {
+            $mailer->setCC($adminEmails);
+        }
+
+        return $mailer->setSubject($subject)
+            ->send();
+    }
+
     public static function buildTree($elements, $parentId = 0) {
         $branch = array();
 
