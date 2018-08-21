@@ -2,7 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-
+$protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://';
 $config = [
     'id' => 'basic',
     'name' => 'List Master',
@@ -54,6 +54,7 @@ $config = [
                     'class' => 'yii\authclient\clients\Google',
                     'clientId' => '1022716341457-f27n3jfgajncgub5i2qk7it0lkho8a74.apps.googleusercontent.com',
                     'clientSecret' => 'Zr7Oit-z-VTKsNh8yRVfAoPK',
+                    'returnUrl' => $protocol.$_SERVER['HTTP_HOST'].'/site/auth?authclient=google'
                 ]
             ],
         ],
