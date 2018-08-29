@@ -48,7 +48,7 @@ class CommonlistController extends \yii\rest\ActiveController
         $query = Commonlist::find()->joinWith(['commonlistType'])->where([
             'commonlist.active' => 1,
             'slug' => $slug,
-            'commonlisttype.active' => 1
+            'commonlisttype.active' => 2
         ]);
 
         return new \yii\data\ActiveDataProvider([
@@ -74,7 +74,7 @@ class CommonlistController extends \yii\rest\ActiveController
         $query = \app\models\Commonlist::find()->joinWith(['commonlistType'])->where([
             'commonlist.active' => 1,
             'slug' => $slug,
-            'commonlisttype.active' => 1
+            'commonlisttype.active' => 2
         ]);
         $filterStr = json_encode($filterCondition);
         $filterStr = str_replace('"id":','"commonlist.id":',$filterStr);
