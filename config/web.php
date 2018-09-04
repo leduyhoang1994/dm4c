@@ -19,6 +19,7 @@ $config = [
         'pt_list' => 'app\controllers\EntityAccountController',
         'sp_list' => 'app\controllers\ProductController',
         'hd_list' => 'app\controllers\ActivitieController',
+        'mdt_list' => 'app\controllers\MaDuToanController',
         'common_list' => 'app\controllers\CommonlistController',
         'user-services' => 'app\controllers\UserServiceController',
     ],
@@ -123,6 +124,16 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule', 
                     'controller' => 'cdt_list',
+                    'only' => ['index', 'view', 'options', 'search'],
+                    'pluralize'=>false,
+                    'extraPatterns' => [
+                        'POST search' => 'search',
+                        'GET nested' => 'nested'
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'mdt_list',
                     'only' => ['index', 'view', 'options', 'search'],
                     'pluralize'=>false,
                     'extraPatterns' => [
