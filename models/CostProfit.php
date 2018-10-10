@@ -67,7 +67,13 @@ class CostProfit extends \yii\db\ActiveRecord
             'upgrade_note' => Yii::t('app', 'Upgrade Note'),
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
+            'updated_at' => Yii::t('app', 'Updated At')
         ];
+    }
+
+    public function attributes()
+    {
+        // add distance attribute (will work for json output)
+        return array_merge(parent::attributes(), ['version']);
     }
 }

@@ -5,23 +5,26 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "madutoan".
+ * This is the model class for table "data_version".
  *
  * @property string $id
- * @property string $id_bpms
- * @property string $mdt
+ * @property int $category_id
  * @property string $name
+ * @property string $description
+ * @property string $version_id
+ * @property int $owner
  * @property string $created_at
  * @property string $updated_at
+ * @property string $record_id
  */
-class MaDuToan extends \yii\db\ActiveRecord
+class DataVersion extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'madutoan';
+        return 'data_version';
     }
 
     /**
@@ -30,9 +33,10 @@ class MaDuToan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['category_id', 'owner'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['id_bpms', 'mdt'], 'string', 'max' => 255],
-            [['name'], 'string', 'max' => 500],
+            [['name', 'description', 'record_id'], 'string', 'max' => 255],
+            [['version_id'], 'string', 'max' => 32],
         ];
     }
 
@@ -43,17 +47,14 @@ class MaDuToan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_bpms' => 'Id Bpms',
-            'mdt' => 'Mdt',
+            'category_id' => 'Category ID',
             'name' => 'Name',
+            'description' => 'Description',
+            'version_id' => 'Version ID',
+            'owner' => 'Owner',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'record_id' => 'Record ID',
         ];
-    }
-
-    public function attributes()
-    {
-        // add distance attribute (will work for json output)
-        return array_merge(parent::attributes(), ['version']);
     }
 }

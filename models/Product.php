@@ -63,4 +63,10 @@ class Product extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
+
+    public function attributes()
+    {
+        // add distance attribute (will work for json output)
+        return array_merge(parent::attributes(), ['version']);
+    }
 }
