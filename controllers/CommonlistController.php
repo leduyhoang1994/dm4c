@@ -104,7 +104,7 @@ class CommonlistController extends \yii\rest\ActiveController
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
             SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
             from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
-        
+
         $filterStr = json_encode($filterCondition);
         $filterStr = str_replace('"id":','"commonlist.id":',$filterStr);
         $filterStr = str_replace('"name":','"commonlist.name":',$filterStr);
