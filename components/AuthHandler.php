@@ -55,6 +55,11 @@ class AuthHandler
                 $user = $auth->user;
                 Yii::$app->user->login($user, 3600 * 24);
                 ActionLog::add('success');
+                $message = [
+                    'source' => $id,
+                    'email' => $email
+                ];
+//                var_dump($message);exit();
             } else { // signup
                 if ($email !== null && User::find()->where(['email' => $email])->exists()) {
                     Yii::$app->getSession()->setFlash('error', [

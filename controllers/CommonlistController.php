@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\CommonlistType;
+use app\models\ListCategory;
 use Yii;
 use app\models\Commonlist;
 use app\components\Helper;
@@ -45,11 +46,24 @@ class CommonlistController extends \yii\rest\ActiveController
 
     public function actionIndex($slug)
     {
+        $commonId = CommonlistType::find()->where([
+            "slug" => $slug
+        ])->one()->id;
+
+        $catId = \app\models\ListCategory::find()->where([
+            "category_id" => ListCategory::COMMON_LIST,
+            "list_id" => $commonId
+        ])->one()->id;
+
         $query = Commonlist::find()->joinWith(['commonlistType'])->where([
             'commonlist.active' => 1,
             'slug' => $slug,
             'commonlisttype.active' => 2
-        ]);
+        ])->select(['commonlist.*',"(select 
+            if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < commonlist.updated_at, 
+            concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
+            SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
+            from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
 
         return new \yii\data\ActiveDataProvider([
             'query' => $query,
@@ -71,11 +85,26 @@ class CommonlistController extends \yii\rest\ActiveController
             }
         }
 
-        $query = \app\models\Commonlist::find()->joinWith(['commonlistType'])->where([
+
+        $commonId = CommonlistType::find()->where([
+            "slug" => $slug
+        ])->one()->id;
+
+        $catId = \app\models\ListCategory::find()->where([
+            "category_id" => ListCategory::COMMON_LIST,
+            "list_id" => $commonId
+        ])->one()->id;
+
+        $query = Commonlist::find()->joinWith(['commonlistType'])->where([
             'commonlist.active' => 1,
             'slug' => $slug,
             'commonlisttype.active' => 2
-        ]);
+        ])->select(['commonlist.*',"(select 
+            if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < commonlist.updated_at, 
+            concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
+            SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
+            from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
+
         $filterStr = json_encode($filterCondition);
         $filterStr = str_replace('"id":','"commonlist.id":',$filterStr);
         $filterStr = str_replace('"name":','"commonlist.name":',$filterStr);

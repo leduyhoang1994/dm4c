@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\Helper;
+use app\models\ListCategory;
 use Yii;
 use yii\helpers\VarDumper;
 use yii\rest\ActiveController;
@@ -23,6 +24,7 @@ class CostProfitController extends ActiveController implements Dm4cController
     public function actions()
     {
         $actions = parent::actions();
+        unset($actions['index']);
         return $actions;
     }
 
@@ -64,8 +66,16 @@ class CostProfitController extends ActiveController implements Dm4cController
                 return $filter;
             }
         }
+        $catId = \app\models\ListCategory::find()->where([
+            "category_id" => 1,
+            "list_id" => ListCategory::CDT
+        ])->one()->id;
 
-        $query = \app\models\CostProfit::find();
+        $query = \app\models\CostProfit::find()->select(['cdt.*',"(select 
+            if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < cdt.updated_at, 
+            concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
+            SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
+            from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
         if ($filterCondition !== null) {
             $query->andWhere($filterCondition);
         }
@@ -77,6 +87,26 @@ class CostProfitController extends ActiveController implements Dm4cController
         if (isset(Yii::$app->request->getBodyParams()['pagination']) && !Yii::$app->request->getBodyParams()['pagination']) {
             $provider['pagination'] = false;
         }
+
+        return new \yii\data\ActiveDataProvider($provider);
+    }
+
+    public function actionIndex()
+    {
+        $catId = \app\models\ListCategory::find()->where([
+            "category_id" => 1,
+            "list_id" => ListCategory::CDT
+        ])->one()->id;
+
+        $query = \app\models\CostProfit::find()->select(['cdt.*',"(select 
+            if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < cdt.updated_at, 
+            concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
+            SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
+            from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
+
+        $provider = [
+            'query' => $query
+        ];
 
         return new \yii\data\ActiveDataProvider($provider);
     }

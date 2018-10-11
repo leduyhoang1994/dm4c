@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\ListCategory;
 use Yii;
 use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
@@ -36,6 +37,13 @@ class ProductController extends ActiveController implements Dm4cController
         ];
     }
 
+    public function actions()
+    {
+        $actions = parent::actions();
+        unset($actions['index']);
+        return $actions;
+    }
+
     public function actionSearch()
     {
         $filter = new \yii\data\ActiveDataFilter([
@@ -54,8 +62,17 @@ class ProductController extends ActiveController implements Dm4cController
                 return $filter;
             }
         }
-        
-        $query = \app\models\Product::find();
+
+        $catId = \app\models\ListCategory::find()->where([
+            "category_id" => 1,
+            "list_id" => ListCategory::SP
+        ])->one()->id;
+
+        $query = \app\models\Product::find()->select(['sp.*',"(select 
+            if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < sp.updated_at, 
+            concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
+            SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
+            from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
         if ($filterCondition !== null) {
             $query->andWhere($filterCondition);
         }
@@ -67,6 +84,26 @@ class ProductController extends ActiveController implements Dm4cController
         if (isset(Yii::$app->request->getBodyParams()['pagination']) && !Yii::$app->request->getBodyParams()['pagination']) {
             $provider['pagination'] = false;
         }
+
+        return new \yii\data\ActiveDataProvider($provider);
+    }
+
+    public function actionIndex()
+    {
+        $catId = \app\models\ListCategory::find()->where([
+            "category_id" => 1,
+            "list_id" => ListCategory::SP
+        ])->one()->id;
+
+        $query = \app\models\Product::find()->select(['sp.*',"(select 
+            if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < sp.updated_at, 
+            concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
+            SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1))
+            from version where id = (select version_id from data_version where category_id = {$catId} order by version_id desc limit 1)) as version"]);
+
+        $provider = [
+            'query' => $query
+        ];
 
         return new \yii\data\ActiveDataProvider($provider);
     }

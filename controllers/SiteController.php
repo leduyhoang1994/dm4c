@@ -75,6 +75,12 @@ class SiteController extends Controller
             $url = $protocol.$domainName;
             
             $this->layout = 'login';
+
+            return $this->redirect(['/dashboard/login-handle',
+                'email' => Yii::$app->user->identity->email,
+                'auth_key' => Yii::$app->user->identity->auth_key
+            ]);
+
             return $this->render('redirect', [
                 'url' => $url
             ]);

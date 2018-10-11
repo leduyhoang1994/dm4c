@@ -77,4 +77,10 @@ class Commonlist extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ListMasterHistory::className(), ['listmaster_id' => 'id']);
     }
+
+    public function attributes()
+    {
+        // add distance attribute (will work for json output)
+        return array_merge(parent::attributes(), ['version']);
+    }
 }
