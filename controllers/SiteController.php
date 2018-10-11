@@ -76,7 +76,7 @@ class SiteController extends Controller
             
             $this->layout = 'login';
 
-            return $this->redirect(['/dasboard/login-handle',
+            return $this->redirect(['/dashboard/login-handle',
                 'email' => Yii::$app->user->identity->email,
                 'auth_key' => Yii::$app->user->identity->auth_key
             ]);
