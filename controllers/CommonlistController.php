@@ -115,11 +115,17 @@ class CommonlistController extends \yii\rest\ActiveController
             $query->andWhere($filterCondition);
         }
 
+        $provider = [
+            'query' => $query,
+        ];
+
+        if (isset(Yii::$app->request->getBodyParams()['pagination']) && !Yii::$app->request->getBodyParams()['pagination']) {
+            $provider['pagination'] = false;
+        }
+
 //        return $query->createCommand()->sql;
 
-        return new \yii\data\ActiveDataProvider([
-            'query' => $query,
-        ]);
+        return new \yii\data\ActiveDataProvider($provider);
     }
 
 }
