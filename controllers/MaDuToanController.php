@@ -8,6 +8,12 @@ use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
 use app\components\Helper;
 
+/**
+ * Controller kiểm soát việc xuất api mã dự toán
+ *
+ * Class MaDuToanController
+ * @package app\controllers
+ */
 class MaDuToanController extends ActiveController implements Dm4cController
 {
     public $modelClass = 'app\models\MaDuToan';
@@ -44,6 +50,12 @@ class MaDuToanController extends ActiveController implements Dm4cController
         return $actions;
     }
 
+    /**
+     * Tìm kiếm mã dự toán
+     *
+     * @return mixed|\yii\data\ActiveDataFilter|\yii\data\ActiveDataProvider
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionSearch()
     {
         $filter = new \yii\data\ActiveDataFilter([
@@ -69,6 +81,7 @@ class MaDuToanController extends ActiveController implements Dm4cController
             "list_id" => ListCategory::MDT
         ])->one()->id;
 
+        // raw query để lấy version cho mã dự toán
         $query = \app\models\MaDuToan::find()->select(['madutoan.*',"(select 
             if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < madutoan.updated_at, 
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 

@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'DM4C project';
+$this->title = 'List Master project';
 ?>
 <div class="site-index">
 

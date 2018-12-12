@@ -8,6 +8,12 @@ use Yii;
 use app\models\Commonlist;
 use app\components\Helper;
 
+/**
+ * Controller quản lý xuất api common list
+ *
+ * Class CommonlistController
+ * @package app\controllers
+ */
 class CommonlistController extends \yii\rest\ActiveController
 {
     public $modelClass = 'app\models\Commonlist';
@@ -44,6 +50,12 @@ class CommonlistController extends \yii\rest\ActiveController
         return $actions;
     }
 
+    /**
+     * Hiển thị dữ liệu của common list theo slug
+     *
+     * @param $slug
+     * @return \yii\data\ActiveDataProvider
+     */
     public function actionIndex($slug)
     {
         $commonId = CommonlistType::find()->where([
@@ -55,6 +67,7 @@ class CommonlistController extends \yii\rest\ActiveController
             "list_id" => $commonId
         ])->one()->id;
 
+        //Đoạn raw query xử lý việc lấy ra tên version
         $query = Commonlist::find()->joinWith(['commonlistType'])->where([
             'commonlist.active' => 1,
             'slug' => $slug,
@@ -70,6 +83,13 @@ class CommonlistController extends \yii\rest\ActiveController
         ]);
     }
 
+    /**
+     * Tìm kiếm common list theo slug
+     *
+     * @param $slug
+     * @return \yii\data\ActiveDataFilter|\yii\data\ActiveDataProvider
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionSearch($slug)
     {
         $filter = new \yii\data\ActiveDataFilter([
@@ -95,6 +115,7 @@ class CommonlistController extends \yii\rest\ActiveController
             "list_id" => $commonId
         ])->one()->id;
 
+        //Đoạn raw query xử lý việc lấy ra tên version
         $query = Commonlist::find()->joinWith(['commonlistType'])->where([
             'commonlist.active' => 1,
             'slug' => $slug,

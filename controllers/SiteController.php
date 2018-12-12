@@ -67,7 +67,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        Yii::$app->view->title = "DM4C project";
+        Yii::$app->view->title = "List Master project";
         if (!Yii::$app->user->isGuest) {
             // $this->redirect(['/dashboard']);
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
@@ -140,33 +140,10 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
+     * Register action
      *
-     * @return Response|string
+     * @return view
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
     public function actionRegister()
     {
         $this->layout = 'login';
@@ -181,7 +158,7 @@ class SiteController extends Controller
                 $user = $model->register();
                 if ($user) {
                     Yii::$app->user->login($user, 3600 * 24);
-                    Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
+                    Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of List Master to confirm your request');
                     $this->redirect(['/']);
                 }
             }

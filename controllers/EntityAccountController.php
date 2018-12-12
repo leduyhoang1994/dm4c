@@ -8,6 +8,12 @@ use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
 use app\components\Helper;
 
+/**
+ * Controller quản lý việc xuất api pháp nhân tài khoản
+ *
+ * Class EntityAccountController
+ * @package app\controllers
+ */
 class EntityAccountController extends ActiveController implements Dm4cController
 {
     public $modelClass = 'app\models\EntityAccount';
@@ -44,6 +50,12 @@ class EntityAccountController extends ActiveController implements Dm4cController
         ];
     }
 
+    /**
+     * Tìm kiếm pháp nhân tài khoản
+     *
+     * @return mixed|\yii\data\ActiveDataFilter|\yii\data\ActiveDataProvider
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionSearch()
     {
         $filter = new \yii\data\ActiveDataFilter([
@@ -69,6 +81,7 @@ class EntityAccountController extends ActiveController implements Dm4cController
             "list_id" => ListCategory::PT
         ])->one()->id;
 
+        // raw query để lấy thêm version của pháp nhân
         $query = \app\models\EntityAccount::find()->select(['pt.*',"(select 
             if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < pt.updated_at, 
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
@@ -89,6 +102,11 @@ class EntityAccountController extends ActiveController implements Dm4cController
         return new \yii\data\ActiveDataProvider($provider);
     }
 
+    /**
+     * Hiển thị dữ liệu của pháp  nhân tài khoản
+     *
+     * @return \yii\data\ActiveDataProvider
+     */
     public function actionIndex()
     {
         $catId = \app\models\ListCategory::find()->where([
@@ -96,6 +114,7 @@ class EntityAccountController extends ActiveController implements Dm4cController
             "list_id" => ListCategory::PT
         ])->one()->id;
 
+        // raw query để lấy thêm version của pháp nhân
         $query = \app\models\EntityAccount::find()->select(['pt.*',"(select 
             if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < pt.updated_at, 
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 

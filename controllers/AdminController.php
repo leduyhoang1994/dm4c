@@ -68,6 +68,11 @@ class AdminController extends Controller
         return $this->render('index');
     }
 
+    /**
+     * Set quyền cho user
+     * @param $u request_identity của user
+     * @return string|void
+     */
     public function actionConfirm($u)
     {
         $user = \app\models\User::findOne([
@@ -111,6 +116,10 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Hiển thị màn hình nhúng phân quyền
+     * @return string
+     */
     public function actionPartnerManager()
     {
         $this->layout = 'none';

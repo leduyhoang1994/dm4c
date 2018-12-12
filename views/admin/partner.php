@@ -6,7 +6,7 @@
     use app\assets\AppAsset;
 
     AppAsset::register($this);
-    $this->title = 'Partners manager - DM4C project';
+    $this->title = 'Partners manager - List Master project';
 ?>
 
 <div class="site-index">

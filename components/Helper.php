@@ -50,7 +50,7 @@ class Helper
             $mailer->setCC($adminEmails);
         }
 
-        $mailer->setSubject('Submit registration for DM4C services')
+        $mailer->setSubject('Submit registration for List Master services')
         ->send();
                             
         Yii::$app->mailer

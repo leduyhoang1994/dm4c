@@ -96,7 +96,7 @@ class AuthHandler
                             Helper::registerMail($email, $nickname, $requestIdentity, true);
 
                             $transaction->commit();
-                            Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of DM4C to confirm your request');
+                            Yii::$app->session->setFlash('success', 'Your request has been sent, please contact to admin of List Master to confirm your request');
                             Yii::$app->user->login($user, 3600 * 24);
                             ActionLog::add('register');
                         } else {
