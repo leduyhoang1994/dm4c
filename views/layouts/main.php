@@ -75,7 +75,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">DM4C <?= date('Y') ?></p>
+        <p class="pull-left">List Master <?= date('Y') ?></p>
     </div>
 </footer>
 

@@ -7,7 +7,7 @@ use Yii;
 use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
 use app\components\Helper;
-
+/* Controller quản lý việc gọi api cho chiều Hoạt Động */
 class ActivitieController extends ActiveController implements Dm4cController
 {
     public $modelClass = 'app\models\Activity';
@@ -46,6 +46,7 @@ class ActivitieController extends ActiveController implements Dm4cController
 
     public function actionSearch()
     {
+        // api tìm kiếm
         $filter = new \yii\data\ActiveDataFilter([
             'searchModel' => 'app\models\ActivitySearch'
         ]);
@@ -69,6 +70,7 @@ class ActivitieController extends ActiveController implements Dm4cController
             "list_id" => ListCategory::HD
         ])->one()->id;
 
+        // đoạn raw query để lấy thêm version của hđ
         $query = \app\models\Activity::find()->select(['hd.*',"(select 
             if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < hd.updated_at, 
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
@@ -91,11 +93,13 @@ class ActivitieController extends ActiveController implements Dm4cController
 
     public function actionIndex()
     {
+        // hiển thị dữ liệu
         $catId = \app\models\ListCategory::find()->where([
             "category_id" => 1,
             "list_id" => ListCategory::HD
         ])->one()->id;
 
+        // đoạn raw query để lấy thêm version của hđ
         $query = \app\models\Activity::find()->select(['hd.*',"(select 
             if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < hd.updated_at, 
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 

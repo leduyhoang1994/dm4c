@@ -88,7 +88,7 @@ class SetRoleForm extends Model
                 ])
                     ->setFrom('listmaster@topica.asia')
                     ->setTo($user->email)
-                    ->setSubject('Submit registration for DM4C services')
+                    ->setSubject('Submit registration for List Master services')
                     ->send();
             }
         } else {

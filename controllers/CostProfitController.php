@@ -9,6 +9,12 @@ use yii\helpers\VarDumper;
 use yii\rest\ActiveController;
 use app\models\forms\LoginForm;
 
+/**
+ * Controller quản lý xuất api chủ dự toán
+ *
+ * Class CostProfitController
+ * @package app\controllers
+ */
 class CostProfitController extends ActiveController implements Dm4cController
 {
     public $modelClass = 'app\models\CostProfit';
@@ -48,6 +54,12 @@ class CostProfitController extends ActiveController implements Dm4cController
         ];
     }
 
+    /**
+     * Tìm kiếm chủ dự toán
+     *
+     * @return \yii\data\ActiveDataFilter|\yii\data\ActiveDataProvider
+     * @throws \yii\base\InvalidConfigException
+     */
     public function actionSearch()
     {
         $filter = new \yii\data\ActiveDataFilter([
@@ -71,6 +83,7 @@ class CostProfitController extends ActiveController implements Dm4cController
             "list_id" => ListCategory::CDT
         ])->one()->id;
 
+        //raw query kiểm soát việc lấy ra version
         $query = \app\models\CostProfit::find()->select(['cdt.*',"(select 
             if ((select updated_at from data_version where category_id = 1 order by version_id desc limit 1) < cdt.updated_at, 
             concat(SUBSTRING_INDEX(SUBSTRING_INDEX(name , ' - ', 1), ' - ', -1), '+'), 
@@ -91,6 +104,11 @@ class CostProfitController extends ActiveController implements Dm4cController
         return new \yii\data\ActiveDataProvider($provider);
     }
 
+    /**
+     * Hiển thị dữ liệu của chủ dự toán
+     *
+     * @return \yii\data\ActiveDataProvider
+     */
     public function actionIndex()
     {
         $catId = \app\models\ListCategory::find()->where([
