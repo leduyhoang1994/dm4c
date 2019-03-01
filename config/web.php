@@ -21,7 +21,7 @@ $config = [
         'hd_list' => 'app\controllers\ActivitieController',
         'mdt_list' => 'app\controllers\MaDuToanController',
         'common_list' => 'app\controllers\CommonlistController',
-        'app_list' => 'app\controllers\ApplistController',
+        'app_list' => 'app\controllers\AppListController',
         'user-services' => 'app\controllers\UserServiceController',
     ],
     'modules' => [
