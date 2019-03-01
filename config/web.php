@@ -21,6 +21,7 @@ $config = [
         'hd_list' => 'app\controllers\ActivitieController',
         'mdt_list' => 'app\controllers\MaDuToanController',
         'common_list' => 'app\controllers\CommonlistController',
+        'app_list' => 'app\controllers\ApplistController',
         'user-services' => 'app\controllers\UserServiceController',
     ],
     'modules' => [
@@ -150,6 +151,14 @@ $config = [
                         'GET nested' => 'nested',
                         'GET <slug>' => 'index',
                         'POST <slug>/search' => 'search',
+                    ],
+                ],[
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'app_list',
+                    'only' => ['index', 'options', 'search'],
+                    'pluralize'=>false,
+                    'extraPatterns' => [
+                        'POST search' => 'search'
                     ],
                 ],
                 [
