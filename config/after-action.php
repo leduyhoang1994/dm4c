@@ -10,10 +10,10 @@ return function ($event) {
         'common_list'
     ];
 
-    if (in_array($event->action->controller->id, $listControllerLog)) {
+    /*if (in_array($event->action->controller->id, $listControllerLog)) {
         ActionLog::add(Yii::$app->response->statusCode, [
             "url" => Yii::$app->request->url,
             "params" => Yii::$app->request->bodyParams,
         ]);
-    }
+    }*/
 };
