@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\ApiToken;
 
 /**
  * This is the model class for table "tbl_user".
@@ -79,7 +80,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(['token' => $token]);
+        return ApiToken::find()->where(['token' => $token, 'status'=>1])->one();
+        /*return static::findOne(['token' => $token]);*/
     }
 
     public function getId()

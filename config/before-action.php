@@ -11,20 +11,20 @@ return function ($event) {
         'sp_list',
         'hd_list',
     ];
-    $identity = ApiToken::find()->where(['token' => $authKey, 'status'=>1])->one();
-    if (Yii::$app->user->isGuest && !empty($authKey)) {
-        if ($identity) {
-            $user = User::find()->where('email', $identity->user_email)->one();
-            Yii::$app->user->login($user, 3600 * 24);
-        }
+    /*$identity = ApiToken::find()->where(['token' => $authKey, 'status'=>1])->one();*/
+    /*$user = User::find()->where('email', $identity->user_email)->one();*/
+
+    if (in_array($event->action->controller->id, $listControllerLog)) {
+        ActionLog::add("success", [
+            "url" => Yii::$app->request->url,
+            "params" => Yii::$app->request->bodyParams
+        ]);
     }
-    if ($identity) {
-        if (in_array($event->action->controller->id, $listControllerLog)) {
-            ActionLog::add("success", [
-                "url" => Yii::$app->request->url,
-                "params" => Yii::$app->request->bodyParams,
-                "app_id" => $identity->app_id,
-            ]);
+
+    if (Yii::$app->user->isGuest && !empty($authKey)) {
+        $identity = User::findByAuthkey($authKey);
+        if ($identity) {
+            Yii::$app->user->login($identity, 3600 * 24);
         }
     }
 
