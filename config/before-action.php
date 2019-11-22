@@ -38,8 +38,7 @@ function getBearerToken() {
 return function ($event) {
     $authKey = $_COOKIE['_identity'] ?? null;
 
-    $token = getBearerToken();
-    var_dump($token);die();
+    $bearerToken = getBearerToken();
 
     $listControllerLog = [
         'cdt_list',
@@ -47,21 +46,22 @@ return function ($event) {
         'sp_list',
         'hd_list',
     ];
-    /*$identity = ApiToken::find()->where(['token' => $authKey, 'status'=>1])->one();*/
-    /*$user = User::find()->where('email', $identity->user_email)->one();*/
-
-    if (in_array($event->action->controller->id, $listControllerLog)) {
-        ActionLog::add("success", [
-            "url" => Yii::$app->request->url,
-            "params" => Yii::$app->request->bodyParams
-        ]);
-    }
 
     if (Yii::$app->user->isGuest && !empty($authKey)) {
         $identity = User::findByAuthkey($authKey);
         if ($identity) {
             Yii::$app->user->login($identity, 3600 * 24);
         }
+    }
+
+    $token = ApiToken::find()->where(['token' => $bearerToken, 'status'=>1])->one();
+
+    if (in_array($event->action->controller->id, $listControllerLog)) {
+        ActionLog::add("success", [
+            "url" => Yii::$app->request->url,
+            "params" => Yii::$app->request->bodyParams,
+            "app_id" => $token->app_id,
+        ]);
     }
 
 };
