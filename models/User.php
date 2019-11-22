@@ -80,8 +80,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return ApiToken::find()->where(['token' => $token, 'status'=>1])->one();
-        /*return static::findOne(['token' => $token]);*/
+        $token = ApiToken::find()->where(['token' => $token, 'status'=>1])->one();
+        return static::findOne(['email' => $token->user_create]);
     }
 
     public function getId()
