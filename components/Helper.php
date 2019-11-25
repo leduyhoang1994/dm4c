@@ -32,6 +32,7 @@ class Helper
     }
 
     public static function registerMail ($email, $username, $requestIdentity, $social) {
+        return true;
         $adminEmail = Yii::$app->params['adminEmail'];
 
         $selectAdmin = User::find()->select('email')->where(['role_id' => Role::ADMINISTRATOR])->asArray()->all();
@@ -65,6 +66,7 @@ class Helper
 
     public static function sendMail($subject, $content, $to = null, $ccAdmins = true)
     {
+        return true;
         $adminEmail = Yii::$app->params['adminEmail'];
 
         $selectAdmin = User::find()->select('email')->where(['role_id' => Role::ADMINISTRATOR])->asArray()->all();
